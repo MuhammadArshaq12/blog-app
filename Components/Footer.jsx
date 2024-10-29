@@ -66,7 +66,7 @@ const Footer = () => {
               className="social-icon"
             >
               <Image src={assets.facebook_icon} alt="Facebook" width={30} height={30} />
-              <span className="sr-only">Facebook</span>
+              
             </a>
             <a
               href="https://twitter.com"
@@ -75,7 +75,7 @@ const Footer = () => {
               className="social-icon"
             >
               <Image src={assets.twitter_icon} alt="Twitter" width={30} height={30} />
-              <span className="sr-only">Twitter</span>
+              
             </a>
             <a
               href="https://google.com"
@@ -84,7 +84,7 @@ const Footer = () => {
               className="social-icon"
             >
               <Image src={assets.googleplus_icon} alt="Google Plus" width={30} height={30} />
-              <span className="sr-only">Google Plus</span>
+              
             </a>
           </div>
 

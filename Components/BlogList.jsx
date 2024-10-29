@@ -181,22 +181,20 @@ const BlogList = () => {
                   <p className="text-gray-600">Try adjusting your search or filter to find what you're looking for.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-                  {filteredBlogs.map((item, index) => (
-                    <div
-                      key={index}
-                      className="blog-card group"
-                    >
-                       <BlogItem
-                    id={item._id}
-                    image={item.image}
-                    title={item.title}
-                    description={item.description}
-                    category={item.category}
-                  />
-                    </div>
-                  ))}
-                </div>
+                <div className="blog-list-grid">
+  {filteredBlogs.map((item, index) => (
+    <div key={index} className="blog-card group">
+      <BlogItem
+        id={item._id}
+        image={item.image}
+        title={item.title}
+        description={item.description}
+        category={item.category}
+      />
+    </div>
+  ))}
+</div>
+
               )}
             </>
           )}
