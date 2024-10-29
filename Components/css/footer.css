@@ -1,0 +1,126 @@
+.footer {
+    background-color: #111827;
+    color: #d1d5db;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  .footer-container {
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .email-subscription {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  
+  .email-subscription h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+  
+  .email-subscription p {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+  }
+  
+  .email-form {
+    display: flex;
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .email-input {
+    flex-grow: 1;
+    background-color: #374151;
+    color: #000000;
+    padding: 0.5rem 1rem;
+    outline: none;
+  }
+  
+  .subscribe-button {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 0.5rem 1.25rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .subscribe-button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .logo-section {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .logo-section img {
+    max-width: 150px;
+    height: auto;
+    transition: opacity 0.3s ease;
+  }
+  
+  .logo-section img:hover {
+    opacity: 0.9;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .social-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .copyright {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .legal-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .legal-links a {
+    transition: color 0.3s ease;
+  }
+  
+  .legal-links a:hover {
+    color: #ffffff;
+  }
+  
+  .bottom-border {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #374151;
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+  }

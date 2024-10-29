@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Loader2, Search, Filter, X, RefreshCcw } from 'lucide-react';
 import BlogItem from './BlogItem';
-import '@/app/globals.css';
-import 'tailwindcss/tailwind.css';
+import './css/bloglist.css'; // Import the custom CSS file
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
@@ -14,7 +13,7 @@ const BlogList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [banners, setBanners] = useState([]); // Add state for banners
+  const [banners, setBanners] = useState([]);
 
   // Fetch banners (replace with your actual API call)
   const fetchBanners = async () => {
@@ -111,11 +110,11 @@ const BlogList = () => {
             placeholder="Search articles by title or content..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
+            className="search-input"
           />
           <button
             onClick={() => setFilterOpen(!filterOpen)}
-            className="absolute inset-y-2 right-2 px-4 flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200"
+            className={`filter-button ${filterOpen ? 'active' : ''}`}
           >
             {filterOpen ? <X size={18} /> : <Filter size={18} />}
             <span className="hidden sm:inline">Filters</span>
@@ -127,11 +126,7 @@ const BlogList = () => {
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto px-4 py-6 bg-gray-50 rounded-xl">
             <button
               onClick={() => setMenu('All')}
-              className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
-                menu === "All" 
-                  ? 'bg-blue-600 text-white shadow-lg scale-105' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+              className={`category-button ${menu === "All" ? 'active' : ''}`}
             >
               All Posts
             </button>
@@ -139,11 +134,7 @@ const BlogList = () => {
               <button
                 key={index}
                 onClick={() => setMenu(category.name)}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
-                  menu === category.name 
-                    ? 'bg-blue-600 text-white shadow-lg scale-105' 
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
-                }`}
+                className={`category-button ${menu === category.name ? 'active' : ''}`}
               >
                 {category.name}
               </button>
@@ -194,7 +185,7 @@ const BlogList = () => {
                   {filteredBlogs.map((item, index) => (
                     <div
                       key={index}
-                      className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                      className="blog-card group"
                     >
                        <BlogItem
                     id={item._id}

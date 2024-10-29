@@ -1,6 +1,4 @@
-import React from 'react';
-import '@/app/globals.css';
-import 'tailwindcss/tailwind.css';
+import React from 'react'
 
 const SubsTableItem = ({email,mongoId,deleteEmail,date}) => {
     
