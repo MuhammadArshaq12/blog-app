@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BlogItem from './BlogItem';
-import './BlogList.css';
+import './css/bloglist.css';
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
