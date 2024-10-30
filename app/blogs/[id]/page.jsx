@@ -208,64 +208,67 @@ const BlogPostPage = ({ params }) => {
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-6">Comments ({comments.length})</h2>
               
-              {/* Comment Form */}
-              <form onSubmit={handleCommentSubmit} className="space-y-4 mb-8">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={newComment.name}
-                  onChange={(e) => setNewComment({ ...newComment, name: e.target.value })}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  required
-                />
-                <textarea
-                  placeholder="Share your thoughts..."
-                  value={newComment.comment}
-                  onChange={(e) => setNewComment({ ...newComment, comment: e.target.value })}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all min-h-[120px]"
-                  required
-                ></textarea>
-                <button 
-                  type="submit" 
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  Post Comment
-                </button>
-              </form>
+             
 
               {/* Comments List */}
+{user ? (
+  <form onSubmit={handleCommentSubmit} className="space-y-4 mb-8">
+    <input
+      type="text"
+      placeholder="Your name"
+      value={newComment.name}
+      onChange={(e) => setNewComment({ ...newComment, name: e.target.value })}
+      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+      required
+    />
+    <textarea
+      placeholder="Share your thoughts..."
+      value={newComment.comment}
+      onChange={(e) => setNewComment({ ...newComment, comment: e.target.value })}
+      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all min-h-[120px]"
+      required
+    ></textarea>
+    <button
+      type="submit"
+      className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Post Comment
+    </button>
+  </form>
+) : (
+  <div className="text-center py-8 bg-gray-50 rounded-lg">
+    <p className="text-gray-500">Please log in to comment on this post.</p>
+  </div>
+)}
+
 <div className="space-y-6">
-  {user ? (
-    comments.length > 0 ? (
-      comments.map((comment, index) => (
-        <div key={index} className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
-              {comment.name.charAt(0).toUpperCase()}
+  {comments.length > 0 ? (
+    comments.map((comment, index) => (
+      <div key={index} className=" mt-3 bg-gray-50 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
+            {comment.name.charAt(0).toUpperCase()}
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center justify-between">
+              <p className="font-semibold">{comment.name}</p>
+              <p className="text-sm text-gray-500">
+                {new Date(comment.date).toLocaleDateString()}
+              </p>
             </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <p className="font-semibold">{comment.name}</p>
-                <p className="text-sm text-gray-500">
-                  {new Date(comment.date).toLocaleDateString()}
-                </p>
-              </div>
-              <p className="mt-2 text-gray-700">{comment.comment}</p>
-            </div>
+            <p className="mt-2 text-gray-700">{comment.comment}</p>
           </div>
         </div>
-      ))
-    ) : (
-      <div className="text-center py-8 bg-gray-50 rounded-lg">
-        <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
       </div>
-    )
+    ))
   ) : (
-    <div className="text-center py-8 bg-gray-50 rounded-lg">
-      <p className="text-gray-500">Please log in to comment on this post.</p>
+    <div className=" mt-3 text-center py-8 bg-gray-50 rounded-lg">
+      <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
     </div>
   )}
 </div>
+
+
 
             </div>
           </div>
