@@ -3,14 +3,14 @@ import React from 'react';
 import Image from 'next/image';
 import { assets } from '@/Assets/assets';
 import Link from 'next/link';
-import { useUser } from '@/app/userContext/UserContext'; // Import the user context
+import { useUser } from '@/app/userContext/UserContext'; 
 import './css/header.css';
 
 const Header = () => {
-  const { user, setUser } = useUser(); // Get user and setUser from context object  
+  const { user, setUser } = useUser();
 
   const handleLogout = () => {
-    setUser(null); // Clear user state on logout
+    setUser(null); 
   };
 
   return (
@@ -21,15 +21,16 @@ const Header = () => {
           <div className="flex justify-between items-center">
             {/* Logo */}
             <div className="header-logo-container relative group">
-              <Image 
-                src={assets.logo} 
-                width={180} 
-                height={60} 
-                alt="Logo" 
-                className="header-logo w-[130px] sm:w-[180px] cursor-pointer transition-all duration-300 transform hover:scale-105"
-              />
-              <div className="header-logo-overlay absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-lg" />
-            </div>
+            <Link href="/">
+  <Image 
+    src={assets.logo} 
+    width={180} 
+    height={60} 
+    alt="Logo" 
+    className="header-logo w-[130px] sm:w-[180px] cursor-pointer transition-all duration-300 transform hover:scale-105"
+  />
+</Link>
+               </div>
 
             {/* Conditional Rendering */}
             {user ? (

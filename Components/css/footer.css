@@ -1,126 +1,235 @@
 .footer {
-    background-color: #111827;
-    color: #d1d5db;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-  
-  .footer-container {
-    max-width: 36rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  
-  .email-subscription {
-    margin-bottom: 2.5rem;
-    text-align: center;
-  }
-  
-  .email-subscription h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1rem;
-  }
-  
-  .email-subscription p {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    margin-bottom: 1.5rem;
-  }
-  
-  .email-form {
-    display: flex;
-    border: 1px solid #374151;
-    border-radius: 0.5rem;
-    overflow: hidden;
-  }
-  
-  .email-input {
-    flex-grow: 1;
-    background-color: #374151;
-    color: #000000;
-    padding: 0.5rem 1rem;
-    outline: none;
-  }
-  
-  .subscribe-button {
-    background-color: #2563eb;
-    color: #ffffff;
-    padding: 0.5rem 1.25rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .subscribe-button:hover {
-    background-color: #1d4ed8;
-  }
-  
-  .footer-content {
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  background: linear-gradient(180deg, #1a237e 0%, #111827 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.footer-waves {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.wave {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 80px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.footer-section h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  width: 40px;
+  height: 2px;
+  background: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+  width: 60px;
+}
+
+.company-info {
+  gap: 2rem;
+}
+
+.company-description {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.footer-logo {
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: translateY(-2px);
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: #3b82f6;
+  transform: translateY(-3px);
+}
+
+.quick-links nav,
+.legal nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quick-links a,
+.legal a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  width: fit-content;
+}
+
+.quick-links a::after,
+.legal a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.quick-links a:hover,
+.legal a:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.quick-links a:hover::after,
+.legal a:hover::after {
+  width: 100%;
+}
+
+.newsletter p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+.newsletter-form .input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-form button {
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.newsletter-form button:disabled {
+  background: #64748b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright,
+.attribution {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+}
+
+.attribution {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
     gap: 2rem;
-    align-items: center;
   }
-  
-  .logo-section {
-    display: flex;
-    justify-content: center;
+
+  .newsletter-form .input-group {
+    flex-direction: column;
   }
-  
-  .logo-section img {
-    max-width: 150px;
-    height: auto;
-    transition: opacity 0.3s ease;
-  }
-  
-  .logo-section img:hover {
-    opacity: 0.9;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-  
-  .social-icon {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-  
-  .social-icon:hover {
-    transform: scale(1.1);
-  }
-  
-  .copyright {
-    font-size: 0.875rem;
-    color: #6b7280;
-  }
-  
-  .legal-links {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 0.875rem;
-    color: #6b7280;
-  }
-  
-  .legal-links a {
-    transition: color 0.3s ease;
-  }
-  
-  .legal-links a:hover {
-    color: #ffffff;
-  }
-  
-  .bottom-border {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #374151;
-    font-size: 0.75rem;
-    color: #6b7280;
+
+  .footer-bottom {
+    flex-direction: column;
     text-align: center;
   }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 3rem 1rem 1.5rem;
+  }
+}
