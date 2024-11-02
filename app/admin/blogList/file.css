@@ -1,0 +1,72 @@
+/* BlogList.css */
+.blog-container {
+    flex: 1;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  @media (min-width: 640px) {
+    .blog-container {
+      padding-top: 48px;
+      padding-left: 64px;
+    }
+  }
+  
+  .table-container {
+    position: relative;
+    height: 80vh;
+    max-width: 850px;
+    overflow-x: auto;
+    margin-top: 16px;
+    border: 1px solid #9ca3af;
+  }
+  
+  .table-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .blog-table {
+    width: 100%;
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .blog-table thead {
+    font-size: 12px;
+    color: #374151;
+    text-transform: uppercase;
+    text-align: left;
+    background-color: #f9fafb;
+  }
+  
+  .blog-table th {
+    padding: 12px 24px;
+  }
+  
+  .blog-table .action-column {
+    padding: 12px 8px;
+  }
+  
+  .author-column {
+    display: none;
+  }
+  
+  @media (min-width: 640px) {
+    .author-column {
+      display: block;
+    }
+  }
+  
+  /* Add these styles if you're also styling the BlogTableItem component */
+  .blog-table td {
+    padding: 12px 24px;
+  }
+  
+  .blog-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .blog-table tbody tr:hover {
+    background-color: #f9fafb;
+  }

@@ -1,33 +1,49 @@
-import React from 'react'
+// BlogTableItem.jsx
+import React from 'react';
+import '../css/item.css';
 
-const BlogTableItem = ({ authorImg, title, category,author, date, deleteBlog, editBlog, mongoId }) => {
+const BlogTableItem = ({ 
+  authorImg, 
+  title, 
+  category, 
+  author, 
+  date, 
+  deleteBlog, 
+  editBlog, 
+  mongoId 
+}) => {
   const BlogDate = new Date(date);
   
   return (
-    <tr className='bg-white border-b'>
-      <th scope='row' className='items-center gap-3 hidden sm:flex px-6 py-4 font-medium text-gray-900 whitespace-nowrap'>
-        <p>{author ? author : "No author"}</p>
-      </th>
-      <td className='px-6 py-4'>
+    <tr className='table-row'>
+      <td className='table-cell'>
+        {author ? author : "No Author"}
+      </td>
+      <td className='table-cell'>
         {title ? title : "No title"}
       </td>
-      <td className='px-6 py-4'>
+      <td className='table-cell'>
         {category ? category : "No Category"}
       </td>
-      <td className='px-6 py-4'>
+      <td className='table-cell'>
         {BlogDate.toDateString()}
       </td>
-      <td className='px-6 py-4 cursor-pointer'>
-        <button onClick={() => deleteBlog(mongoId)} className="text-red-500">
-          Delete
-        </button>
-        &nbsp;&nbsp;&nbsp;
-        <button onClick={() => editBlog()} className="text-blue-500">
+      <td className='table-cell actions'>
+        <button 
+          onClick={() => editBlog()} 
+          className="edit-button"
+        >
           Edit
+        </button>
+        <button 
+          onClick={() => deleteBlog(mongoId)} 
+          className="delete-button"
+        >
+          Delete
         </button>
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default BlogTableItem
+export default BlogTableItem;

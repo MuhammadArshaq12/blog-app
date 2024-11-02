@@ -43,10 +43,6 @@ const BlogItem = ({ title, description, category, image, id, date = "2024" }) =>
                 className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
             >
                 Read more
-                <ArrowRight 
-                    size={16}
-                    className="transform hover:translate-x-1 transition-transform duration-200"
-                />
             </p>
         </Link>
         </div>
