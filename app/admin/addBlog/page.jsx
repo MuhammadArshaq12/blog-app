@@ -13,7 +13,7 @@ const AddBlogPage = () => {
     title: "",
     description: "",
     category: "",
-    author: "Alex Bennett",
+    author: "",
     authorImg: "/author_img.png",
     youtubeLink: ""
   });
@@ -71,7 +71,7 @@ const AddBlogPage = () => {
         title: "",
         description: "",
         category: "",
-        author: "Alex Bennett",
+        author: "",
         authorImg: "/author_img.png",
         youtubeLink: ""
       });
@@ -89,13 +89,15 @@ const AddBlogPage = () => {
       <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden required />
       <p className='text-xl mt-4'>Blog title</p>
       <input name='title' onChange={onChangeHandler} value={data.title} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' type="text" placeholder='Type here' required />
+      <p className='text-xl mt-4'>Author Name</p>
+      <input name='author' onChange={onChangeHandler} value={data.author} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' type="text" placeholder='Type here' required />
       <p className='text-xl mt-4'>Blog Description</p>
       <textarea name='description' onChange={onChangeHandler} value={data.description} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' placeholder='write content here' rows={6} required />
       <p className='text-xl mt-4'>Blog category</p>
       <select name="category" onChange={onChangeHandler} value={data.category} className='w-40 mt-4 px-4 py-3 border text-gray-500'>
         {categories.map((category, index) => (
           <option key={index} value={category.name}>{category.name}</option>
-        ))}
+        ))} 
       </select>
       <p className='text-xl mt-4'>YouTube Link</p>
       <input 

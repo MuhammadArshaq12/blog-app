@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Loader2, Search, Filter, X, RefreshCcw } from 'lucide-react';
 import BlogItem from './BlogItem';
 import './css/bloglist.css';
+import RotatingTitles from '@/Components/blogtitle';
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
@@ -95,8 +96,15 @@ const BlogList = () => {
 
   return (
     <div className="blog-list-container">
+      {/* Main Heading */}
+      <h1 className="text-center header-hero-title relative text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
+              <span className="header-hero-title-text inline-block transform hover:scale-105 transition-transform duration-300">
+                Discover the Latest Blogs
+              </span>
+            </h1>
+<RotatingTitles blogs={blogs} />
       {/* Search and Filter Header */}
-      <div className="header-section">
+      <div className="header-section mt-10">
         <div className="search-container">
           <div className="search-icon">
             <Search className="icon" />

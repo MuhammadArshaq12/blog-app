@@ -39,6 +39,8 @@ const ListUserPage = () => {
             <tr>
               <th scope="col" className="px-6 py-3">User Name</th>
               <th scope="col" className="px-6 py-3">Email</th>
+              <th scope="col" className="px-6 py-3">PhoneNumber</th>
+              <th scope="col" className="px-6 py-3">Password</th>
               <th scope="col" className="px-6 py-3">Action</th>
             </tr>
           </thead>
@@ -47,6 +49,8 @@ const ListUserPage = () => {
               <tr key={index}>
                 <td className="px-6 py-3">{user.name}</td>
                 <td className="px-6 py-3">{user.email}</td>
+                <td className="px-6 py-3">{user.phoneNumber}</td>
+                <td className="px-6 py-3">{user.password}</td>
                 <td className="px-6 py-3">
                   <button onClick={() => deleteUser(user._id)} className="text-red-500">
                     Delete

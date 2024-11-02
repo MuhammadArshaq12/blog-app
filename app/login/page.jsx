@@ -20,11 +20,12 @@ const Login = () => {
     setMessage('');
 
     if (email === "Admin@gmail.com" && password === "Admin1234!") {
+      setUser({ name: "admin", email: "Admin@gmail.com" }); 
       setTimeout(() => {
-        router.push('/admin');
+          router.push('/admin'); 
       }, 1000);
       return;
-    }
+  }
 
     try {
       const response = await fetch('/api/login', {

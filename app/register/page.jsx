@@ -89,7 +89,7 @@ const Register = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phoneNumber, 
+          phoneNumber: formData.phoneNumber, 
           password: formData.password,
         }),
       });

@@ -1,49 +1,66 @@
-import { assets } from '@/Assets/assets'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+// Sidebar.jsx
+'use client';
+import { assets } from '@/Assets/assets';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import styles from '@/Components/css/Sidebar.module.css';
 
 const Sidebar = () => {
+    // Track active menu item
+    const [activeItem, setActiveItem] = useState('');
+
+    // Menu items data
+    const menuItems = [
+        { id: 1, path: '/admin/addBlog', icon: assets.add_icon, label: 'Add blogs' },
+        { id: 2, path: '/admin/addCategory', icon: assets.add_icon, label: 'Add Category' },
+        { id: 3, path: '/admin/addAds', icon: assets.add_icon, label: 'Add Ads' },
+        { id: 4, path: '/admin/adsList', icon: assets.blog_icon, label: 'Ads lists' },
+        { id: 5, path: '/admin/blogList', icon: assets.blog_icon, label: 'Blog lists' },
+        { id: 6, path: '/admin/categoryList', icon: assets.category_icon, label: 'Category List' },
+        { id: 7, path: '/admin/userList', icon: assets.group_icon, label: 'User List' },
+        { id: 8, path: '/admin/commentList', icon: assets.comment_icon, label: 'Comments List' },
+        { id: 9, path: '/admin/subscriptions', icon: assets.email_icon, label: 'Subscriptions' }
+    ];
+
     return (
-        <div className='flex flex-col bg-slate-100'>
-            <div className='px-2 sm:pl-14 py-3 border border-black'>
-                <Image src={assets.logo} width={120} alt='' />
-            </div>
-            <div className='w-28 sm:w-80 h-[100vh] relative py-12 border border-black'>
-                <div className='w-[50%] sm:w-[80%] absolute right-0'>
-                    <Link href='/admin/addBlog' className='flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.add_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Add blogs</p>
-                    </Link>
-                    <Link href='/admin/addCategory' className='mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.add_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Add Category</p>
-                    </Link>
-                    <Link href='/admin/addAds' className='mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.add_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Add Ads</p>
-                    </Link>
-                    <Link href='/admin/adsList' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.blog_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Ads lists</p>
-                    </Link>
-                    <Link href='/admin/blogList' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.blog_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Blog lists</p>
-                    </Link>
-                    <Link href='/admin/categoryList' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.category_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Category List</p>
-                    </Link>
-                    <Link href='/admin/userList' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.group_icon} alt='' width={28} /><p className='hidden sm:inline-block'>User List</p>
-                    </Link>
-                    <Link href='/admin/commentList' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.comment_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Comments List</p>
-                    </Link>
-                    <Link href='/admin/subscriptions' className=' mt-5 flex items-center border border-black gap-3 font-medium px-3 py-2 bg-white shadow-[-5px_5px_0px_#000000]'>
-                        <Image src={assets.email_icon} alt='' width={28} /><p className='hidden sm:inline-block'>Subscriptions</p>
-                    </Link>
-                </div>
-
+        <aside className={styles.sidebar}>
+            {/* Logo Section */}
+            <div className={styles.logoSection}>
+                <Image 
+                    src={assets.logo} 
+                    width={120} 
+                    height={40} 
+                    alt="Logo" 
+                    className={styles.logo}
+                />
             </div>
 
-        </div>
-    )
-}
+            {/* Navigation Menu */}
+            <nav className={styles.nav}>
+                {menuItems.map((item) => (
+                    <Link
+                        key={item.id}
+                        href={item.path}
+                        className={`${styles.menuItem} ${
+                            activeItem === item.path ? styles.active : ''
+                        }`}
+                        onClick={() => setActiveItem(item.path)}
+                    >
+                        <div className={styles.iconContainer}>
+                            <Image 
+                                src={item.icon} 
+                                width={24} 
+                                height={24} 
+                                alt={item.label}
+                            />
+                        </div>
+                        <span className={styles.menuLabel}>{item.label}</span>
+                    </Link>
+                ))}
+            </nav>
+        </aside>
+    );
+};
 
-export default Sidebar
+export default Sidebar;

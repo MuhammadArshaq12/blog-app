@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import './css/blogitem.css';
 
 const BlogItem = ({ title, description, category, image, id, date = "2024" }) => {
@@ -37,15 +37,22 @@ const BlogItem = ({ title, description, category, image, id, date = "2024" }) =>
               <Calendar size={14} />
               <span>{date}</span>
             </div>
-            <div className="metadata-item">
-              <Clock size={14} />
-              <span>5 min read</span>
-            </div>
           </div>
+          <Link href={`/blogs/${id}`}>
+            <p 
+                className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
+            >
+                Read more
+                <ArrowRight 
+                    size={16}
+                    className="transform hover:translate-x-1 transition-transform duration-200"
+                />
+            </p>
+        </Link>
         </div>
       </div>
 
-      <div className="hover-border" />
+     
     </article>
   );
 };
