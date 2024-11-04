@@ -1,0 +1,46 @@
+/* styles/add-blog.css */
+
+.container {
+    padding-top: 1.25rem; /* pt-5 */
+    padding-left: 1.25rem; /* pl-5 */
+    padding-right: 1.25rem; /* pr-5 */
+  }
+  
+  .title {
+    font-size: 1.25rem; /* text-xl */
+  }
+  
+  .upload-image {
+    margin-top: 1rem; /* mt-4 */
+  }
+  
+  .input {
+    width: 100%; /* w-full */
+    margin-top: 1rem; /* mt-4 */
+    padding: 0.75rem 1rem; /* px-4 py-3 */
+    border: 1px solid #d1d5db; /* border */
+  }
+  
+  .input-small {
+    width: 10rem; /* w-40 */
+  }
+  
+  .error-message {
+    color: #ef4444; /* text-red-500 */
+    margin-top: 0.5rem; /* mt-2 */
+  }
+  
+  .submit-button {
+    margin-top: 2rem; /* mt-8 */
+    width: 10rem; /* w-40 */
+    height: 3rem; /* h-12 */
+    background-color: #000; /* bg-black */
+    color: #fff; /* text-white */
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #333; /* Slightly darker on hover */
+  }
+  

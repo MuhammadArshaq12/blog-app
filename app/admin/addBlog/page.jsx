@@ -1,10 +1,11 @@
 // pages/admin/add-blog.js
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { assets } from '@/Assets/assets'
+import { assets } from '@/Assets/assets';
+import './add.css'; // Import the custom CSS file
 
 const AddBlogPage = () => {
   const [categories, setCategories] = useState([]);
@@ -81,39 +82,44 @@ const AddBlogPage = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className='pt-5 px-5 sm:pt-12 sm:pl-16'>
-      <p className='text-xl'>Upload thumbnail</p>
+    <form onSubmit={onSubmitHandler} className='container'>
+      <p className='title'>Upload thumbnail</p>
       <label htmlFor="image">
-        <Image className='mt-4' src={!image ? assets.upload_area : URL.createObjectURL(image)} width={140} height={70} alt='' />
+        <Image className='upload-image' src={!image ? assets.upload_area : URL.createObjectURL(image)} width={140} height={70} alt='' />
       </label>
       <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden required />
-      <p className='text-xl mt-4'>Blog title</p>
-      <input name='title' onChange={onChangeHandler} value={data.title} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' type="text" placeholder='Type here' required />
-      <p className='text-xl mt-4'>Author Name</p>
-      <input name='author' onChange={onChangeHandler} value={data.author} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' type="text" placeholder='Type here' required />
-      <p className='text-xl mt-4'>Blog Description</p>
-      <textarea name='description' onChange={onChangeHandler} value={data.description} className='w-full sm:w-[500px] mt-4 px-4 py-3 border' placeholder='write content here' rows={6} required />
-      <p className='text-xl mt-4'>Blog category</p>
-      <select name="category" onChange={onChangeHandler} value={data.category} className='w-40 mt-4 px-4 py-3 border text-gray-500'>
+      
+      <p className='title'>Blog title</p>
+      <input name='title' onChange={onChangeHandler} value={data.title} className='input' type="text" placeholder='Type here' required />
+      
+      <p className='title'>Author Name</p>
+      <input name='author' onChange={onChangeHandler} value={data.author} className='input' type="text" placeholder='Type here' required />
+      
+      <p className='title'>Blog Description</p>
+      <textarea name='description' onChange={onChangeHandler} value={data.description} className='input' placeholder='write content here' rows={6} required />
+      
+      <p className='title'>Blog category</p>
+      <select name="category" onChange={onChangeHandler} value={data.category} className='input input-small text-gray-500'>
         {categories.map((category, index) => (
           <option key={index} value={category.name}>{category.name}</option>
-        ))} 
+        ))}
       </select>
-      <p className='text-xl mt-4'>YouTube Link</p>
+      
+      <p className='title'>YouTube Link</p>
       <input 
         name='youtubeLink' 
         onChange={onChangeHandler} 
         value={data.youtubeLink} 
-        className='w-full sm:w-[500px] mt-4 px-4 py-3 border' 
+        className='input' 
         type="text" 
         placeholder='Enter YouTube link' 
       />
-      {youtubeError && <p className='text-red-500 mt-2'>{youtubeError}</p>}
-      <br />
-      <button type="submit" className='mt-8 w-40 h-12 bg-black text-white'>ADD</button>
-      <br />
-      <br />
-      <br />
+      {youtubeError && <p className='error-message'>{youtubeError}</p>}
+      
+      <button type="submit" className='submit-button'>ADD</button>
+      <br></br>
+      <br></br>
+      <br></br>
     </form>
   );
 };
