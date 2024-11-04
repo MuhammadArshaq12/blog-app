@@ -2,8 +2,56 @@
 .blog-list-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 3rem 1rem;
+  position: relative;
 }
+
+
+.ad-banner {
+  background-color: #f0f0f0; /* Light gray background for visibility */
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border for visibility */
+  margin-bottom: 20px; /* Space between banners */
+}
+
+.top-banner {
+  margin-bottom: 20px;
+  height: 200px; /* More space below the top banner */
+}
+
+.bottom-banner {
+  margin-top: 20px; /* More space above the bottom banner */
+  height: 200px;
+}
+
+.content-layout {
+  display: flex;
+  justify-content: space-between; /* Space out the content */
+}
+
+.main-content {
+  flex: 1; /* Take available space */
+  margin: 0 20px; /* Space between the side banners */
+}
+
+.left-banner,
+.right-banner {
+  width: 250px; /* Fixed width for side banners */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+@media (max-width: 768px) {
+  .content-layout {
+    flex-direction: column; /* Stack vertically on smaller screens */
+  }
+
+  .left-banner,
+  .right-banner {
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 20px; /* Space between stacked elements */
+  }
+}
+
 
 @media (min-width: 640px) {
   .blog-list-container {

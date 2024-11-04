@@ -273,13 +273,13 @@ const BlogPostPage = ({ params }) => {
         </div>
       </div>
       {/* Bottom Ad */}
-      <div className="ad-banner mt-8">
+      {/* <div className="ad-banner mt-8">
                 {banners.length > 2 && (
                     <div
                         dangerouslySetInnerHTML={{ __html: banners[2].ad_code }}
                     />
                 )}
-            </div>
+            </div> */}
       <Footer />
     </div>
   ) : null);

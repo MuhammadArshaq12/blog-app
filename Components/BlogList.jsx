@@ -96,6 +96,17 @@ const BlogList = () => {
 
   return (
     <div className="blog-list-container">
+      <div className="ad-banner mt-8">
+    {banners.length > 0 ? (
+        <div
+            dangerouslySetInnerHTML={{ __html: banners[0].ad_code }}
+        />
+    ) : (
+      <div className="ad-banner top-banner">Top Ad Banner</div>
+    )}
+</div>
+
+      
       {/* Main Heading */}
       <h1 className="text-center header-hero-title relative text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
               <span className="header-hero-title-text inline-block transform hover:scale-105 transition-transform duration-300">
@@ -149,15 +160,18 @@ const BlogList = () => {
 
       {/* Blog and Ad Sections */}
       <div className="content-layout">
-        {/* Left Banner */}
-        <div className="banner-left">
-          {banners.length > 0 && (
-            <div
-              className="ad-banner"
-              dangerouslySetInnerHTML={{ __html: banners[0]?.ad_code }}
-            />
-          )}
-        </div>
+        
+      <div className="ad-banner mt-8">
+    {banners.length > 1 ? (
+        <div
+            dangerouslySetInnerHTML={{ __html: banners[1].ad_code }}
+        />
+    ) : (
+      <div className="ad-banner left-banner">Left Ad Banner</div>
+
+    )}
+</div>
+
 
         {/* Main Content */}
         <div className="main-content">
@@ -202,27 +216,31 @@ const BlogList = () => {
             </>
           )}
         </div>
+        
+        <div className="ad-banner mt-8">
+    {banners.length > 2 ? (
+        <div
+            dangerouslySetInnerHTML={{ __html: banners[2].ad_code }}
+        />
+    ) : (
+      <div className="ad-banner right-banner">Right Ad Banner</div>
+    )}
+</div>
 
-        {/* Right Banner */}
-        <div className="banner-right">
-          {banners.length > 1 && (
-            <div
-              className="ad-banner"
-              dangerouslySetInnerHTML={{ __html: banners[1]?.ad_code }}
-            />
-          )}
-        </div>
+        
       </div>
 
-      {/* Bottom Banner */}
-      <div className="banner-bottom">
-        {banners.length > 2 && (
-          <div
-            className="ad-banner"
-            dangerouslySetInnerHTML={{ __html: banners[2]?.ad_code }}
-          />
-        )}
-      </div>
+      
+      <div className="ad-banner mt-8">
+    {banners.length > 3 ? (
+        <div
+            dangerouslySetInnerHTML={{ __html: banners[3].ad_code }}
+        />
+    ) : (
+      <div className="ad-banner bottom-banner">Bottom Ad Banner</div>
+    )}
+</div>
+
     </div>
   );
 };

@@ -83,13 +83,11 @@ const Register = () => {
     try {
       const response = await fetch('/api/user', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phoneNumber: formData.phoneNumber, 
+          phoneNumber: formData.phoneNumber,
           password: formData.password,
         }),
       });

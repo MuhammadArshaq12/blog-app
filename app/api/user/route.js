@@ -35,45 +35,38 @@ export async function GET(request) {
   }
 }
 
+
 export async function POST(request) {
   try {
     const { name, email, phoneNumber, password } = await request.json();
 
-    // Check if phoneNumber is null or empty
-    if (!phoneNumber) {
-      return NextResponse.json({ message: "Phone number is required" }, { status: 400 });
+    // Validate fields
+    if (!name || !email || !phoneNumber || !password) {
+      return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
     }
 
-    // Existing user check
-    const existingUser = await User.findOne({ 
-      $or: [{ email }, { phoneNumber }]  
-    });
+    // Check if the user with the same email or phone number already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { phoneNumber }] });
 
     if (existingUser) {
-      return NextResponse.json({ message: "User with this email or phone number already exists" }, { status: 400 });
+      const conflictField = existingUser.email === email ? 'Email' : 'Phone number';
+      return NextResponse.json({ error: `${conflictField} already in use.` }, { status: 400 });
     }
 
-    // Create a new user
-    const user = new User({
-      name,
-      email,
-      phoneNumber,
-      password,
-    });
+    // Log the data to the console before inserting
+    const newUser = { name, email, phoneNumber, password };
+    console.log("User data to be inserted:", newUser);
 
-    // Save the user to the database
-    await user.save();
+    // Create and save the new user
+    const createdUser = new User(newUser);
+    await createdUser.save();
 
-    return NextResponse.json({ success: true, message: "User registered successfully!" });
+    return NextResponse.json({ message: 'User registered successfully.' }, { status: 201 });
   } catch (error) {
-    console.error("Error in POST request:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Registration error:', error);
+    return NextResponse.json({ error: 'Server error. Please try again later.' }, { status: 500 });
   }
 }
-
-
-  
-
 
 
 // DELETE - Delete a user by ID
