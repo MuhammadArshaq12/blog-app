@@ -1,8 +1,7 @@
 import { ConnectDB } from "@/lib/config/db";
 import BlogModel from "@/lib/models/BlogModel";
+import cloudinary from "@/lib/cloudinary";
 const { NextResponse } = require("next/server");
-import { writeFile } from 'fs/promises';
-import fs from 'fs';
 
 const LoadDB = async () => {
   await ConnectDB();
@@ -30,22 +29,28 @@ export async function POST(request) {
   try {
     const formData = await request.formData();
     const image = formData.get('image');
-    const timestamp = Date.now();
 
     let imgUrl = "";
     if (image) {
+      // Convert image to buffer and upload it to Cloudinary
       const imageBuffer = Buffer.from(await image.arrayBuffer());
-      const path = `./public/${timestamp}_${image.name}`;
-      await writeFile(path, imageBuffer);
-      imgUrl = `/${timestamp}_${image.name}`;
+
+      // Upload the image to Cloudinary
+      const cloudinaryResponse = await cloudinary.uploader.upload(`data:image/png;base64,${imageBuffer.toString("base64")}`, {
+        folder: "blogs",  // optional: specify a folder in Cloudinary
+      });
+
+      // Get the image URL from Cloudinary
+      imgUrl = cloudinaryResponse.secure_url;
     }
 
+    // Construct the blog data with the Cloudinary image URL
     const blogData = {
       title: formData.get('title'),
       description: formData.get('description'),
       category: formData.get('category'),
       author: formData.get('author'),
-      image: imgUrl,
+      image: imgUrl,  // Use the Cloudinary image URL
       authorImg: formData.get('authorImg') || "/author_img.png",
       youtubeLink: formData.get('youtubeLink')
     };
@@ -59,41 +64,40 @@ export async function POST(request) {
 }
 
 
-// API Endpoint For Updating Blogs
 export async function PUT(request) {
   try {
-    const id = await request.nextUrl.searchParams.get('id');
+    const id = request.nextUrl.searchParams.get("id");
     if (!id) {
       return NextResponse.json({ success: false, msg: "Blog ID is required" }, { status: 400 });
     }
 
     const formData = await request.formData();
     const updatedData = {
-      title: formData.get('title'),
-      description: formData.get('description'),
-      category: formData.get('category'),
-      author: formData.get('author'),
-      youtubeLink: formData.get('youtubeLink'),
+      title: formData.get("title"),
+      description: formData.get("description"),
+      category: formData.get("category"),
+      author: formData.get("author"),
+      youtubeLink: formData.get("youtubeLink"),
     };
 
-    const image = formData.get('image');
+    const image = formData.get("image");
     if (image) {
-      // Check if image is a File or Blob
-      if (image instanceof File || image instanceof Blob) {
-        const imageByteData = await image.arrayBuffer();
-        const buffer = Buffer.from(imageByteData);
-        const timestamp = Date.now();
-        const path = `./public/${timestamp}_${image.name}`;
-        await writeFile(path, buffer);
-        updatedData.image = `/${timestamp}_${image.name}`;
-      } else if (typeof image === 'string') {
-        console.warn("Received image as a string, assuming it's a URL:", image);
-        // Optionally handle the image URL here
-        updatedData.image = image; // Keep the existing image URL
-      } else {
-        console.error("Unexpected type for image:", image);
-        return NextResponse.json({ success: false, msg: "Invalid image format" }, { status: 400 });
-      }
+      const imageBuffer = Buffer.from(await image.arrayBuffer());
+      const uploadResult = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "blogs",
+          },
+          (error, result) => {
+            if (error) {
+              reject(new Error("Failed to upload image to Cloudinary"));
+            } else {
+              resolve(result);
+            }
+          }
+        ).end(imageBuffer);
+      });
+      updatedData.image = uploadResult.secure_url;
     }
 
     const result = await BlogModel.findByIdAndUpdate(id, updatedData, { new: true });
@@ -108,14 +112,16 @@ export async function PUT(request) {
   }
 }
 
-
-
 // Creating API Endpoint to delete Blog
 
 export async function DELETE(request) {
-  const id = await request.nextUrl.searchParams.get('id');
+  const id = await request.nextUrl.searchParams.get("id");
   const blog = await BlogModel.findById(id);
-  fs.unlink(`./public${blog.image}`, () => { });
+  if (blog && blog.image) {
+    // Extract the public_id of the Cloudinary image
+    const publicId = blog.image.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy(`blogs/${publicId}`);
+  }
   await BlogModel.findByIdAndDelete(id);
   return NextResponse.json({ msg: "Blog Deleted" });
 }

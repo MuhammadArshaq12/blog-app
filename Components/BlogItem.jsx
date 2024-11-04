@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import './css/blogitem.css';
 
-const BlogItem = ({ title, description, category, image, id, date = "2024" }) => {
+const BlogItem = ({ title, description, category, image, id, date }) => {
   return (
     <article className="blog-item">
       <Link href={`/blogs/${id}`} className="image-container">

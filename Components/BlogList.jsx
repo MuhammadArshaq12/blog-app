@@ -206,6 +206,7 @@ const BlogList = () => {
                         id={item._id}
                         image={item.image}
                         title={item.title}
+                        date={item.date}
                         description={item.description}
                         category={item.category}
                       />
