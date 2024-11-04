@@ -5,6 +5,7 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import './css/blogitem.css';
 
 const BlogItem = ({ title, description, category, image, id, date }) => {
+  const BlogDate = new Date(date);
   return (
     <article className="blog-item">
       <Link href={`/blogs/${id}`} className="image-container">
@@ -35,7 +36,7 @@ const BlogItem = ({ title, description, category, image, id, date }) => {
           <div className="metadata-items">
             <div className="metadata-item">
               <Calendar size={14} />
-              <span>{date}</span>
+              <span>{BlogDate.toDateString()}</span>
             </div>
           </div>
           <Link href={`/blogs/${id}`}>
