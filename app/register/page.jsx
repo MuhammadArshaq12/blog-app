@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState , useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 const Register = () => {
@@ -10,7 +12,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phoneNumber: '', // New phone number field
+    phoneNumber: '',
     password: '',
     confirmPassword: ''
   });
@@ -18,15 +20,22 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await axios.get('/api/adsense/');
+        setBanners(response.data);
+      } catch (error) {
+        console.error('Failed to fetch banners:', error);
+      }
+    };
+    fetchBanners();
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
-    
-    // Validate phone number
-    const phoneNumber = parsePhoneNumberFromString(formData.phoneNumber);
-    if (!phoneNumber || !phoneNumber.isValid()) {
-      newErrors.phoneNumber = 'Please enter a valid phone number';
-    }
     
     if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters long';
@@ -40,6 +49,9 @@ const Register = () => {
     if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters long';
     }
+    if (!formData.phoneNumber || formData.phoneNumber.length < 10) {
+      newErrors.phoneNumber = 'Please enter a valid phone number';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -51,7 +63,6 @@ const Register = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -59,19 +70,19 @@ const Register = () => {
       }));
     }
   };
-  const [banners, setBanners] = useState([]);
 
-    useEffect(() => {
-        const fetchBanners = async () => {
-            try {
-                const response = await axios.get('/api/adsense/');
-                setBanners(response.data);
-            } catch (error) {
-                console.error('Failed to fetch banners:', error);
-            }
-        };
-        fetchBanners();
-    }, []);
+  const handlePhoneChange = (value) => {
+    setFormData(prev => ({
+      ...prev,
+      phoneNumber: value
+    }));
+    if (errors.phoneNumber) {
+      setErrors(prev => ({
+        ...prev,
+        phoneNumber: ''
+      }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,12 +95,7 @@ const Register = () => {
       const response = await fetch('/api/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phoneNumber: formData.phoneNumber,
-          password: formData.password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -196,21 +202,14 @@ const Register = () => {
             <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
               Phone Number
             </label>
-            <div className="mt-1">
-              <input
-                id="phoneNumber"
-                name="phoneNumber"
-                type="text"
-                required
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="+1 234 567 890"
-              />
-              {errors.phoneNumber && (
-                <p className="mt-1 text-xs text-red-600">{errors.phoneNumber}</p>
-              )}
-            </div>
+            <PhoneInput
+              country={'us'}
+              value={formData.phoneNumber}
+              onChange={handlePhoneChange}
+              inputClass="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="+1 234 567 890"
+            />
+            {errors.phoneNumber && <p className="mt-1 text-xs text-red-600">{errors.phoneNumber}</p>}
           </div>
 
           {/* Password Field */}
