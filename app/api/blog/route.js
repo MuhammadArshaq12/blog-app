@@ -1,8 +1,8 @@
-import { ConnectDB } from "@/lib/config/db"
+import { ConnectDB } from "@/lib/config/db";
 import BlogModel from "@/lib/models/BlogModel";
-const { NextResponse } = require("next/server")
-import { writeFile } from 'fs/promises'
-const fs = require('fs')
+const { NextResponse } = require("next/server");
+import { writeFile } from 'fs/promises';
+import fs from 'fs';
 
 const LoadDB = async () => {
   await ConnectDB();
@@ -26,34 +26,38 @@ export async function GET(request) {
 }
 
 
-// API Endpoint For Uploading Blogs
 export async function POST(request) {
+  try {
+    const formData = await request.formData();
+    const image = formData.get('image');
+    const timestamp = Date.now();
 
-  const formData = await request.formData();
-  const timestamp = Date.now();
+    let imgUrl = "";
+    if (image) {
+      const imageBuffer = Buffer.from(await image.arrayBuffer());
+      const path = `./public/${timestamp}_${image.name}`;
+      await writeFile(path, imageBuffer);
+      imgUrl = `/${timestamp}_${image.name}`;
+    }
 
-  const image = formData.get('image');
-  const imageByteData = await image.arrayBuffer();
-  const buffer = Buffer.from(imageByteData);
-  const path = `./public/${timestamp}_${image.name}`;
-  await writeFile(path, buffer);
-  const imgUrl = `/${timestamp}_${image.name}`;
+    const blogData = {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      category: formData.get('category'),
+      author: formData.get('author'),
+      image: imgUrl,
+      authorImg: formData.get('authorImg') || "/author_img.png",
+      youtubeLink: formData.get('youtubeLink')
+    };
 
-  const blogData = {
-    title: `${formData.get('title')}`,
-    description: `${formData.get('description')}`,
-    category: `${formData.get('category')}`,
-    author: `${formData.get('author')}`,
-    image: `${imgUrl}`,
-    authorImg: `${formData.get('authorImg')}`,
-    youtubeLink: `${formData.get('youtubeLink')}`
+    await BlogModel.create(blogData);
+    return NextResponse.json({ success: true, msg: "Blog Added" });
+  } catch (error) {
+    console.error("Error adding blog:", error);
+    return NextResponse.json({ success: false, msg: "Failed to add blog" }, { status: 500 });
   }
-
-  await BlogModel.create(blogData);
-  console.log("Blog Saved");
-
-  return NextResponse.json({ success: true, msg: "Blog Added" })
 }
+
 
 // API Endpoint For Updating Blogs
 export async function PUT(request) {

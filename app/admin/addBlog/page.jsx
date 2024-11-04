@@ -5,11 +5,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { assets } from '@/Assets/assets';
-import './add.css'; // Import the custom CSS file
+import './add.css';
 
 const AddBlogPage = () => {
   const [categories, setCategories] = useState([]);
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -20,12 +20,15 @@ const AddBlogPage = () => {
   });
   const [youtubeError, setYoutubeError] = useState("");
 
-  const fetchCategories = async () => {
-    const response = await axios.get('/api/category');
-    setCategories(response.data.categories);
-  };
-
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('/api/category');
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
     fetchCategories();
   }, []);
 
@@ -40,11 +43,7 @@ const AddBlogPage = () => {
     setData(data => ({ ...data, [name]: value }));
 
     if (name === "youtubeLink") {
-      if (validateYouTubeLink(value)) {
-        setYoutubeError(""); // Clear error if valid
-      } else {
-        setYoutubeError("Please enter a valid YouTube link");
-      }
+      setYoutubeError(validateYouTubeLink(value) ? "" : "Please enter a valid YouTube link");
     }
   };
 
@@ -61,23 +60,28 @@ const AddBlogPage = () => {
     formData.append('category', data.category);
     formData.append('author', data.author);
     formData.append('authorImg', data.authorImg);
-    formData.append('image', image);
+    if (image) formData.append('image', image);
     formData.append('youtubeLink', data.youtubeLink);
 
-    const response = await axios.post('/api/blog', formData);
-    if (response.data.success) {
-      toast.success(response.data.msg);
-      setImage(false);
-      setData({
-        title: "",
-        description: "",
-        category: "",
-        author: "",
-        authorImg: "/author_img.png",
-        youtubeLink: ""
-      });
-    } else {
-      toast.error("Error");
+    try {
+      const response = await axios.post('/api/blog', formData);
+      if (response.data.success) {
+        toast.success(response.data.msg);
+        setImage(null);
+        setData({
+          title: "",
+          description: "",
+          category: "",
+          author: "",
+          authorImg: "/author_img.png",
+          youtubeLink: ""
+        });
+      } else {
+        toast.error(response.data.msg || "Error adding blog");
+      }
+    } catch (error) {
+      console.error("Error submitting blog:", error);
+      toast.error("Error submitting blog");
     }
   };
 
@@ -88,23 +92,23 @@ const AddBlogPage = () => {
         <Image className='upload-image' src={!image ? assets.upload_area : URL.createObjectURL(image)} width={140} height={70} alt='' />
       </label>
       <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden required />
-      
+
       <p className='title'>Blog title</p>
       <input name='title' onChange={onChangeHandler} value={data.title} className='input' type="text" placeholder='Type here' required />
-      
+
       <p className='title'>Author Name</p>
       <input name='author' onChange={onChangeHandler} value={data.author} className='input' type="text" placeholder='Type here' required />
-      
+
       <p className='title'>Blog Description</p>
       <textarea name='description' onChange={onChangeHandler} value={data.description} className='input' placeholder='write content here' rows={6} required />
-      
+
       <p className='title'>Blog category</p>
       <select name="category" onChange={onChangeHandler} value={data.category} className='input input-small text-gray-500'>
         {categories.map((category, index) => (
           <option key={index} value={category.name}>{category.name}</option>
         ))}
       </select>
-      
+
       <p className='title'>YouTube Link</p>
       <input 
         name='youtubeLink' 
@@ -115,11 +119,9 @@ const AddBlogPage = () => {
         placeholder='Enter YouTube link' 
       />
       {youtubeError && <p className='error-message'>{youtubeError}</p>}
-      
+
       <button type="submit" className='submit-button'>ADD</button>
-      <br></br>
-      <br></br>
-      <br></br>
+      <br /><br /><br />
     </form>
   );
 };
