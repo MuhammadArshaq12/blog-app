@@ -15,13 +15,14 @@ const ListCommentsPage = () => {
   // Delete a comment
   const deleteComment = async (id) => {
     try {
-      await axios.delete(`/api/comment?id=${id}`);
+      await axios.delete('/api/comment', { data: { id } }); // Send id in the request body
       toast.success('Comment Deleted');
       fetchComments(); // Re-fetch comments after deletion
     } catch (error) {
       toast.error('Failed to delete comment');
     }
   };
+  
 
   useEffect(() => {
     fetchComments(); // Fetch comments when page loads

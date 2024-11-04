@@ -52,3 +52,26 @@ export async function GET(request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
   }
+
+
+  // DELETE - Delete a comment
+  export async function DELETE(request) {
+    const { id } = await request.json(); // This line expects the ID in the request body.
+  
+    if (!id) {
+        return NextResponse.json({ error: "Comment ID is required" }, { status: 400 });
+    }
+  
+    try {
+        const deletedComment = await Comment.findByIdAndDelete(id);
+        
+        if (!deletedComment) {
+            return NextResponse.json({ error: "Comment not found" }, { status: 404 });
+        }
+  
+        return NextResponse.json({ success: true, message: "Comment deleted successfully!" });
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+  }
+  

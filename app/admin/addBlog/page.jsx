@@ -111,6 +111,9 @@ const AddBlogPage = () => {
       {youtubeError && <p className='text-red-500 mt-2'>{youtubeError}</p>}
       <br />
       <button type="submit" className='mt-8 w-40 h-12 bg-black text-white'>ADD</button>
+      <br />
+      <br />
+      <br />
     </form>
   );
 };
