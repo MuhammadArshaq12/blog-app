@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
 import { useUser } from '../userContext/UserContext';
+import Header from '@/Components/Header';
 
 const Login = () => {
   const router = useRouter();
@@ -67,6 +68,8 @@ const Login = () => {
     }, []);
 
   return (
+    <>
+    <Header></Header>
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8 relative">
       {/* Ad Banners */}
       <div className="fixed top-4 left-1/2 -translate-x-1/2 p-4 z-10">
@@ -206,6 +209,13 @@ const Login = () => {
                 Home Page
               </Link>
               </p>
+              <p className="text-sm text-gray-600 mt-2">
+  Forgot your password?{' '}
+  <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+    Reset it here
+  </Link>
+</p>
+
           </div>
         </form>
       </div>
@@ -228,6 +238,7 @@ const Login = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
