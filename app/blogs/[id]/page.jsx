@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useUser } from '@/app/userContext/UserContext';
 import React, { useEffect, useState } from 'react'
 import Header from '@/Components/Header';
+import './blog.css';
 
 const BlogPostPage = ({ params }) => {
   const [data, setData] = useState(null);
@@ -16,7 +17,7 @@ const BlogPostPage = ({ params }) => {
   const { user, setUser } = useUser();
 
   const handleLogout = () => {
-    setUser(null); 
+    setUser(null);
   };
 
   const fetchBlogData = async () => {
@@ -61,17 +62,17 @@ const BlogPostPage = ({ params }) => {
 
   const [banners, setBanners] = useState([]);
 
-    useEffect(() => {
-        const fetchBanners = async () => {
-            try {
-                const response = await axios.get('/api/adsense');
-                setBanners(response.data);
-            } catch (error) {
-                console.error('Failed to fetch banners:', error);
-            }
-        };
-        fetchBanners();
-    }, []);
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await axios.get('/api/adsense');
+        setBanners(response.data);
+      } catch (error) {
+        console.error('Failed to fetch banners:', error);
+      }
+    };
+    fetchBanners();
+  }, []);
 
   const getEmbedUrl = (url) => {
     const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -97,9 +98,9 @@ const BlogPostPage = ({ params }) => {
           <h1 className="text-3xl sm:text-5xl font-bold max-w-[800px] mx-auto leading-tight px-4">{data.title}</h1>
           <div className="mt-8 flex flex-col items-center">
             <div className="relative w-20 h-20">
-              <Image 
+              <Image
                 className="rounded-full border-4 border-white shadow-lg object-cover"
-                src={data.authorImg} 
+                src={data.authorImg}
                 fill
                 alt={data.author}
               />
@@ -115,50 +116,25 @@ const BlogPostPage = ({ params }) => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-[800px] mx-auto px-4 -mt-20 mb-16">
+      <div className="content-container">
+      <div className="ad-side">
+    <div className="ad-banner left-banner">Left Ad Banner 1</div>
+    <div className="ad-banner left-banner">Left Ad Banner 2</div>
+  </div>
+
+        {/* Main Content */}
+      <div className="main-content">
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
           <div className="relative w-full h-[400px]">
-            <Image 
+            <Image
               className="object-cover"
-              src={data.image} 
+              src={data.image}
               fill
               alt=""
             />
           </div>
-          
+
           <div className="p-8">
-            {/* Action Buttons */}
-            {/* <div className="flex justify-between items-center mb-8 pb-4 border-b">
-              <div className="flex gap-4">
-                <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                  </svg>
-                  <span>Like</span>
-                </button>
-                <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  <span>Comment</span>
-                </button>
-              </div>
-              <div className="flex gap-4">
-                <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                  <span>Share</span>
-                </button>
-                <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                  </svg>
-                  <span>Save</span>
-                </button>
-              </div>
-            </div> */}
 
             {/* Blog Content */}
             <div className="prose max-w-none mb-8 pb-4 border-b" dangerouslySetInnerHTML={{ __html: data.description }}></div>
@@ -176,110 +152,94 @@ const BlogPostPage = ({ params }) => {
                 ></iframe>
               </div>
             )}
-            {/* Ad Banners Section */}
-            <div className="flex justify-between mb-8">
-                        <div className="w-1/3">
-                            {/* Left Ad */}
-                            {banners.length > 0 && (
-                                <div
-                                    className="ad-banner"
-                                    dangerouslySetInnerHTML={{ __html: banners[0].ad_code }}
-                                />
-                            )}
-                        </div>
-                        <div className="w-1/3 text-center">
-                            {/* Center Ad or Content */}
-                            {/* You can also add more content here if needed */}
-                        </div>
-                        <div className="w-1/3">
-                            {/* Right Ad */}
-                            {banners.length > 1 && (
-                                <div
-                                    className="ad-banner"
-                                    dangerouslySetInnerHTML={{ __html: banners[1].ad_code }}
-                                />
-                            )}
-                        </div>
-                    </div>
 
             {/* Comments Section */}
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-6">Comments ({comments.length})</h2>
-              
-             
+
+
 
               {/* Comments List */}
-{user ? (
-  <form onSubmit={handleCommentSubmit} className="space-y-4 mb-8">
-    <input
-      type="text"
-      placeholder="Your name"
-      value={newComment.name}
-      onChange={(e) => setNewComment({ ...newComment, name: e.target.value })}
-      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-      required
-    />
-    <textarea
-      placeholder="Share your thoughts..."
-      value={newComment.comment}
-      onChange={(e) => setNewComment({ ...newComment, comment: e.target.value })}
-      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all min-h-[120px]"
-      required
-    ></textarea>
-    <button
-      type="submit"
-      className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >
-      Post Comment
-    </button>
-  </form>
-) : (
-  <div className="text-center py-8 bg-gray-50 rounded-lg">
-    <p className="text-gray-500">Please log in to comment on this post.</p>
-  </div>
-)}
+              {user ? (
+                <form onSubmit={handleCommentSubmit} className="space-y-4 mb-8">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    value={newComment.name}
+                    onChange={(e) => setNewComment({ ...newComment, name: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    required
+                  />
+                  <textarea
+                    placeholder="Share your thoughts..."
+                    value={newComment.comment}
+                    onChange={(e) => setNewComment({ ...newComment, comment: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all min-h-[120px]"
+                    required
+                  ></textarea>
+                  <button
+                    type="submit"
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    Post Comment
+                  </button>
+                </form>
+              ) : (
+                <div className="text-center py-8 bg-gray-50 rounded-lg">
+                  <p className="text-gray-500">Please log in to comment on this post.</p>
+                </div>
+              )}
 
-<div className="space-y-6">
-  {comments.length > 0 ? (
-    comments.map((comment, index) => (
-      <div key={index} className=" mt-3 bg-gray-50 rounded-lg p-4">
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
-            {comment.name.charAt(0).toUpperCase()}
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between">
-              <p className="font-semibold">{comment.name}</p>
-              <p className="text-sm text-gray-500">
-                {new Date(comment.date).toLocaleDateString()}
-              </p>
-            </div>
-            <p className="mt-2 text-gray-700">{comment.comment}</p>
-          </div>
-        </div>
-      </div>
-    ))
-  ) : (
-    <div className=" mt-3 text-center py-8 bg-gray-50 rounded-lg">
-      <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
-    </div>
-  )}
-</div>
-
-
-
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Bottom Ad */}
-      {/* <div className="ad-banner mt-8">
-                {banners.length > 2 && (
-                    <div
-                        dangerouslySetInnerHTML={{ __html: banners[2].ad_code }}
-                    />
+              <div className="space-y-6">
+                {comments.length > 0 ? (
+                  comments.map((comment, index) => (
+                    <div key={index} className=" mt-3 bg-gray-50 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
+                          {comment.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <p className="font-semibold">{comment.name}</p>
+                            <p className="text-sm text-gray-500">
+                              {new Date(comment.date).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <p className="mt-2 text-gray-700">{comment.comment}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className=" mt-3 text-center py-8 bg-gray-50 rounded-lg">
+                    <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
+                  </div>
                 )}
-            </div> */}
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+       {/* Right Ads */}
+  <div className="ad-side">
+    <div className="ad-banner right-banner">Right Ad Banner 1</div>
+    <div className="ad-banner right-banner">Right Ad Banner 2</div>
+  </div>
+      </div>
+      <div className="px-10">
+        <div className="ad-banner mt-8 ">
+          {banners.length > 4 ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: banners[4].ad_code }}
+            />
+          ) : (
+            <div className="ad-banner bottom-banner">Bottom Ad Banner</div>
+          )}
+        </div>
+      </div>
       <Footer />
     </div>
   ) : null);
