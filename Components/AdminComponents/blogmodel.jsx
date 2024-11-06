@@ -7,7 +7,7 @@ import Image from 'next/image';
 import '../css/model.css';
 
 const EditBlogModal = ({ blog, onClose, onUpdate }) => {
-  const [data, setData] = useState({ ...blog });
+  const [data, setData] = useState({ ...blog, isRegisteredOnly: blog.isRegisteredOnly || false });
   const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
   const [previewImage, setPreviewImage] = useState(blog.image);
@@ -29,7 +29,7 @@ const EditBlogModal = ({ blog, onClose, onUpdate }) => {
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
-    const value = event.target.value;
+    const value = name === "isRegisteredOnly" ? event.target.checked : event.target.value;
     setData((data) => ({ ...data, [name]: value }));
 
     if (name === "youtubeLink") {
@@ -63,6 +63,7 @@ const EditBlogModal = ({ blog, onClose, onUpdate }) => {
     formData.append('author', data.author);
     formData.append('authorImg', data.authorImg);
     formData.append('youtubeLink', data.youtubeLink);
+    formData.append('isRegisteredOnly', data.isRegisteredOnly);
   
     const fileInput = document.querySelector('input[type="file"]');
     if (fileInput.files.length > 0) {
@@ -149,7 +150,19 @@ const EditBlogModal = ({ blog, onClose, onUpdate }) => {
               required
             />
           </div>
+<br></br>
+          <div className="flex">
+            <p>Registered Users Only</p>
+              <input
+                type="checkbox"
+                name="isRegisteredOnly"
+                checked={data.isRegisteredOnly}
+                onChange={onChangeHandler}
+                />
+                
 
+          </div>
+<br></br>
           <div className="form-grid">
             <div className="form-group">
               <label>Category</label>

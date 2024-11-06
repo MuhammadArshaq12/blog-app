@@ -16,7 +16,8 @@ const AddBlogPage = () => {
     category: "",
     author: "",
     authorImg: "/author_img.png",
-    youtubeLink: ""
+    youtubeLink: "",
+    isRegisteredOnly: false, // Add this line
   });
   const [youtubeError, setYoutubeError] = useState("");
 
@@ -38,9 +39,8 @@ const AddBlogPage = () => {
   };
 
   const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData(data => ({ ...data, [name]: value }));
+    const { name, value, type, checked } = event.target;
+    setData(data => ({ ...data, [name]: type === "checkbox" ? checked : value }));
 
     if (name === "youtubeLink") {
       setYoutubeError(validateYouTubeLink(value) ? "" : "Please enter a valid YouTube link");
@@ -60,6 +60,7 @@ const AddBlogPage = () => {
     formData.append('category', data.category);
     formData.append('author', data.author);
     formData.append('authorImg', data.authorImg);
+    formData.append('isRegisteredOnly', data.isRegisteredOnly); // Add this line
     if (image) formData.append('image', image);
     formData.append('youtubeLink', data.youtubeLink);
 
@@ -74,7 +75,8 @@ const AddBlogPage = () => {
           category: "",
           author: "",
           authorImg: "/author_img.png",
-          youtubeLink: ""
+          youtubeLink: "",
+          isRegisteredOnly: false, // Reset the checkbox
         });
       } else {
         toast.error(response.data.msg || "Error adding blog");
@@ -119,7 +121,17 @@ const AddBlogPage = () => {
         placeholder='Enter YouTube link' 
       />
       {youtubeError && <p className='error-message'>{youtubeError}</p>}
-
+      <br></br>
+      <label>
+        <input 
+          type="checkbox" 
+          name="isRegisteredOnly" 
+          onChange={onChangeHandler} 
+          checked={data.isRegisteredOnly} 
+        />
+        This blog is only for registered users
+      </label>
+      <br></br>
       <button type="submit" className='submit-button'>ADD</button>
       <br /><br /><br />
     </form>

@@ -3,11 +3,16 @@ import './css/title.css';
 
 const RotatingTitles = ({ blogs }) => {
   const lastFiveBlogs = useMemo(() => {
-    return blogs.slice(0, 5).map(blog => ({
-      title: blog.title,
-      category: blog.category
-    }));
+    return blogs
+      .slice()
+      .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort by date (newest first)
+      .slice(0, 5)
+      .map(blog => ({
+        title: blog.title,
+        category: blog.category
+      }));
   }, [blogs]);
+  
 
   return (
     <div className="rotating-titles-section">

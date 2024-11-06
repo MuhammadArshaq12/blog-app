@@ -6,7 +6,6 @@ import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import Header from '@/Components/Header';
 
 const Register = () => {
   const router = useRouter();
@@ -35,11 +34,6 @@ const Register = () => {
     fetchBanners();
   }, []);
 
-  const validatePhoneNumber = (phoneNumber) => {
-    const phoneRegex = /^\+[1-9]\d{1,14}$/; 
-    return phoneRegex.test(phoneNumber);
-  };
-
   const validateForm = () => {
     const newErrors = {};
     
@@ -55,7 +49,7 @@ const Register = () => {
     if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters long';
     }
-    if (!validatePhoneNumber(formData.phoneNumber)) {
+    if (!formData.phoneNumber || formData.phoneNumber.length < 10) {
       newErrors.phoneNumber = 'Please enter a valid phone number';
     }
     
@@ -118,8 +112,6 @@ const Register = () => {
   };
 
   return (
-    <>
-    <Header></Header>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8">
       {/* Ad Banners */}
       <div className="fixed top-4 left-1/2 -translate-x-1/2 p-4 z-10">
@@ -344,7 +336,6 @@ const Register = () => {
         )}
       </div>
     </div>
-    </>
   );
 };
 

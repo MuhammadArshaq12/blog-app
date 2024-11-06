@@ -7,11 +7,17 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'tailwindcss/tailwind.css';
 import '@/app/globals.css';
-import { useUser } from "../userContext/UserContext";
+import { useRouter } from "next/navigation";
+import { useUser } from '@/app/userContext/UserContext'; 
 
 export default function Layout({ children }) {
-    const { user } = useUser();
+    const { user, setUser } = useUser();
+    const router = useRouter();
 
+    const handleLogout = () => {
+      setUser(null); 
+      router.push("/login");
+    };
     // Check if user is logged in and has admin email
     const isAdmin = user && user.email === "Admin@gmail.com";
 
@@ -29,11 +35,14 @@ export default function Layout({ children }) {
                             <div className="flex items-center justify-between w-full py-3 max-h-[60px] px-12 border-b border-black">
                                 <h3 className="font-medium">Admin Panel</h3>
                                 <div className="flex">
-                                    <Link href={"/login"}>
-                                        <button className="bg-red-600 text-white px-4 py-2 rounded-lg">
-                                            Logout
-                                        </button>
-                                    </Link>
+                                    
+                                    <button 
+                  onClick={handleLogout} 
+                  className="header-logout-button bg-red-600 text-white px-4 py-2 rounded-lg"
+                >
+                  Logout
+                </button>
+                                  
                                     &nbsp; &nbsp;&nbsp;&nbsp;
                                     <Image src={assets.profile_icon} width={40} alt="" />
                                 </div>

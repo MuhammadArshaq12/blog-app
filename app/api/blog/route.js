@@ -25,6 +25,7 @@ export async function GET(request) {
 }
 
 
+// route code
 export async function POST(request) {
   try {
     const formData = await request.formData();
@@ -32,27 +33,22 @@ export async function POST(request) {
 
     let imgUrl = "";
     if (image) {
-      // Convert image to buffer and upload it to Cloudinary
       const imageBuffer = Buffer.from(await image.arrayBuffer());
-
-      // Upload the image to Cloudinary
       const cloudinaryResponse = await cloudinary.uploader.upload(`data:image/png;base64,${imageBuffer.toString("base64")}`, {
-        folder: "blogs",  // optional: specify a folder in Cloudinary
+        folder: "blogs",
       });
-
-      // Get the image URL from Cloudinary
       imgUrl = cloudinaryResponse.secure_url;
     }
 
-    // Construct the blog data with the Cloudinary image URL
     const blogData = {
       title: formData.get('title'),
       description: formData.get('description'),
       category: formData.get('category'),
       author: formData.get('author'),
-      image: imgUrl,  // Use the Cloudinary image URL
+      image: imgUrl,
       authorImg: formData.get('authorImg') || "/author_img.png",
-      youtubeLink: formData.get('youtubeLink')
+      youtubeLink: formData.get('youtubeLink'),
+      isRegisteredOnly: formData.get('isRegisteredOnly') === "true"  // Handle checkbox value
     };
 
     await BlogModel.create(blogData);
@@ -62,6 +58,7 @@ export async function POST(request) {
     return NextResponse.json({ success: false, msg: "Failed to add blog" }, { status: 500 });
   }
 }
+
 
 
 export async function PUT(request) {
@@ -78,6 +75,7 @@ export async function PUT(request) {
       category: formData.get("category"),
       author: formData.get("author"),
       youtubeLink: formData.get("youtubeLink"),
+      isRegisteredOnly: formData.get("isRegisteredOnly") === "true", // Convert string to boolean
     };
 
     const image = formData.get("image");
@@ -85,9 +83,7 @@ export async function PUT(request) {
       const imageBuffer = Buffer.from(await image.arrayBuffer());
       const uploadResult = await new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream(
-          {
-            folder: "blogs",
-          },
+          { folder: "blogs" },
           (error, result) => {
             if (error) {
               reject(new Error("Failed to upload image to Cloudinary"));
@@ -111,6 +107,7 @@ export async function PUT(request) {
     return NextResponse.json({ success: false, msg: "Failed to update blog" }, { status: 500 });
   }
 }
+
 
 // Creating API Endpoint to delete Blog
 

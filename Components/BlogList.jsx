@@ -4,8 +4,12 @@ import { Loader2, Search, Filter, X, RefreshCcw } from 'lucide-react';
 import BlogItem from './BlogItem';
 import './css/bloglist.css';
 import RotatingTitles from '@/Components/blogtitle';
+import { useUser } from '@/app/userContext/UserContext'; 
+
 
 const BlogList = () => {
+  const { user } = useUser();
+  
   const [menu, setMenu] = useState("All");
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -16,20 +20,6 @@ const BlogList = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [banners, setBanners] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const blogsPerPage = 6;
-
-  const totalPages = Math.ceil(blogs.length / blogsPerPage);
-  const currentBlogs = blogs.slice(
-    (currentPage - 1) * blogsPerPage,
-    currentPage * blogsPerPage
-  );
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-
 
   const fetchBanners = async () => {
     try {
@@ -68,11 +58,28 @@ const BlogList = () => {
   }, []);
 
   const filteredBlogs = blogs
-    .filter((item) => menu === "All" ? true : item.category.toLowerCase() === menu.toLowerCase())
+    .filter((item) =>
+      menu === "All" ? true : item.category.toLowerCase() === menu.toLowerCase()
+    )
     .filter((item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
+    // Add filter based on user login status and "isRegisteredOnly" field
+    .filter((item) => (user ? true : item.isRegisteredOnly === false));
+
+  const blogsPerPage = 6;
+  const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
+  const currentBlogs = filteredBlogs.slice(
+    (currentPage - 1) * blogsPerPage,
+    currentPage * blogsPerPage
+  );
+
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
 
   const handleRefresh = async () => {
     setLoading(true);

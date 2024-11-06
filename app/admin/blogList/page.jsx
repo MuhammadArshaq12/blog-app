@@ -54,6 +54,7 @@ const Page = () => {
               <th scope="col">Blog Title</th>
               <th scope="col">Blog Category</th>
               <th scope="col">Date</th>
+              <th scope="col">Registered Only</th>
               <th scope="col" className="action-column">Action</th>
             </tr>
           </thead>
@@ -67,6 +68,7 @@ const Page = () => {
                 author={item.author}
                 authorImg={item.authorImg}
                 date={item.date}
+                isRegisteredOnly={item.isRegisteredOnly}
                 deleteBlog={deleteBlog}
                 editBlog={() => handleEditClick(item)}
               />
@@ -74,7 +76,7 @@ const Page = () => {
           </tbody>
         </table>
       </div>
-
+      <br></br>
       {isEditing && (
         <EditBlogModal
           blog={selectedBlog}

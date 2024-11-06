@@ -8,6 +8,7 @@ const BlogTableItem = ({
   category, 
   author, 
   date, 
+  isRegisteredOnly,
   deleteBlog, 
   editBlog, 
   mongoId 
@@ -28,6 +29,9 @@ const BlogTableItem = ({
       <td className='table-cell'>
         {BlogDate.toDateString()}
       </td>
+      <td className='table-cell'>
+  {isRegisteredOnly ? "Yes" : "No"}
+</td>
       <td className='table-cell actions'>
         <button 
           onClick={() => editBlog()} 

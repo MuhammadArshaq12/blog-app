@@ -11,6 +11,8 @@ const Header = () => {
 
   const handleLogout = () => {
     setUser(null); 
+    router.push("/");
+
   };
 
   return (
