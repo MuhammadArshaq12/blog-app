@@ -149,35 +149,35 @@ const BlogList = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"
           />
-          <button
+          {/* <button
             onClick={() => setFilterOpen(!filterOpen)}
             className="filter-button"
           >
             {filterOpen ? <X size={18} /> : <Filter size={18} />}
             <span className="filter-text">Filters</span>
-          </button>
+          </button> */}
         </div>
 
         {/* Category Filters */}
-        <div className={`category-filters ${filterOpen ? 'open' : ''}`}>
-          <div className="category-buttons">
-            <button
-              onClick={() => setMenu('All')}
-              className={`category-button ${menu === "All" ? 'active' : ''}`}
-            >
-              All Posts
-            </button>
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => setMenu(category.name)}
-                className={`category-button ${menu === category.name ? 'active' : ''}`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </div>
+        <div className="category-filters open">
+  <div className="category-buttons">
+    <button
+      onClick={() => setMenu('All')}
+      className={`category-button ${menu === "All" ? 'active' : ''}`}
+    >
+      All Posts
+    </button>
+    {categories.map((category, index) => (
+      <button
+        key={index}
+        onClick={() => setMenu(category.name)}
+        className={`category-button ${menu === category.name ? 'active' : ''}`}
+      >
+        {category.name}
+      </button>
+    ))}
+  </div>
+</div>
       </div>
 
       {/* Blog and Ad Sections */}
