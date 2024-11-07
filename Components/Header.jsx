@@ -5,13 +5,16 @@ import { assets } from '@/Assets/assets';
 import Link from 'next/link';
 import { useUser } from '@/app/userContext/UserContext';
 import './css/header.css';
+import { useRouter } from "next/navigation";
+
 
 const Header = () => {
   const { user, setUser } = useUser();
+  const router = useRouter();
 
   const handleLogout = () => {
     setUser(null);
-    router.push("/");
+    router.push("/login");
 
   };
 
