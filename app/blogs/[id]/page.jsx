@@ -146,9 +146,9 @@ const BlogPostPage = ({ params }) => {
       {/* Main Content */}
       <div className="main-content w-full lg:w-1/2">
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-          <div className="relative w-full h-[300px] sm:h-[400px]">
+          {/* <div className="relative w-full h-[300px] sm:h-[400px]">
             <Image className="object-cover" src={data.image} fill alt="" />
-          </div>
+          </div> */}
 
           <div className="p-8">
             <div className="prose max-w-none mb-8 pb-4 border-b" dangerouslySetInnerHTML={{ __html: data.description }}></div>
