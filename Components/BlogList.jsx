@@ -4,12 +4,12 @@ import { Loader2, Search, Filter, X, RefreshCcw } from 'lucide-react';
 import BlogItem from './BlogItem';
 import './css/bloglist.css';
 import RotatingTitles from '@/Components/blogtitle';
-import { useUser } from '@/app/userContext/UserContext'; 
+import { useUser } from '@/app/userContext/UserContext';
 
 
 const BlogList = () => {
   const { user } = useUser();
-  
+
   const [menu, setMenu] = useState("All");
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -23,10 +23,11 @@ const BlogList = () => {
 
   const fetchBanners = async () => {
     try {
-      const response = await axios.get('/api/banners');
-      setBanners(response.data.banners);
-    } catch (err) {
-      console.error("Failed to load banners", err);
+      const response = await axios.get('/api/adsense');
+      const filteredBanners = response.data.filter(banner => banner.page === 'landing page');
+      setBanners(filteredBanners);
+    } catch (error) {
+      console.error('Failed to fetch banners:', error);
     }
   };
 
@@ -119,9 +120,11 @@ const BlogList = () => {
   return (
     <div className="blog-list-container">
       <div className="ad-banner mt-8">
-        {banners.length > 0 ? (
+        {banners.filter(banner => banner.position === 'top').length > 0 ? (
           <div
-            dangerouslySetInnerHTML={{ __html: banners[0].ad_code }}
+            dangerouslySetInnerHTML={{
+              __html: banners.find(banner => banner.position === 'top').ad_code,
+            }}
           />
         ) : (
           <div className="ad-banner top-banner">Top Ad Banner</div>
@@ -160,37 +163,39 @@ const BlogList = () => {
 
         {/* Category Filters */}
         <div className="category-filters open">
-  <div className="category-buttons">
-    <button
-      onClick={() => setMenu('All')}
-      className={`category-button ${menu === "All" ? 'active' : ''}`}
-    >
-      All Posts
-    </button>
-    {categories.map((category, index) => (
-      <button
-        key={index}
-        onClick={() => setMenu(category.name)}
-        className={`category-button ${menu === category.name ? 'active' : ''}`}
-      >
-        {category.name}
-      </button>
-    ))}
-  </div>
-</div>
+          <div className="category-buttons">
+            <button
+              onClick={() => setMenu('All')}
+              className={`category-button ${menu === "All" ? 'active' : ''}`}
+            >
+              All Posts
+            </button>
+            {categories.map((category, index) => (
+              <button
+                key={index}
+                onClick={() => setMenu(category.name)}
+                className={`category-button ${menu === category.name ? 'active' : ''}`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Blog and Ad Sections */}
       <div className="content-layout">
 
         <div className="ad-banner mt-8">
-          {banners.length > 1 ? (
+
+          {banners.filter(banner => banner.position === 'left').length > 0 ? (
             <div
-              dangerouslySetInnerHTML={{ __html: banners[1].ad_code }}
+              dangerouslySetInnerHTML={{
+                __html: banners.find(banner => banner.position === 'left').ad_code,
+              }}
             />
           ) : (
             <div className="ad-banner left-banner">Left Ad Banner</div>
-
           )}
         </div>
 
@@ -305,9 +310,11 @@ const BlogList = () => {
         </div>
 
         <div className="ad-banner mt-8">
-          {banners.length > 2 ? (
+          {banners.filter(banner => banner.position === 'right').length > 0 ? (
             <div
-              dangerouslySetInnerHTML={{ __html: banners[2].ad_code }}
+              dangerouslySetInnerHTML={{
+                __html: banners.find(banner => banner.position === 'right').ad_code,
+              }}
             />
           ) : (
             <div className="ad-banner right-banner">Right Ad Banner</div>
@@ -319,9 +326,11 @@ const BlogList = () => {
 
 
       <div className="ad-banner mt-8">
-        {banners.length > 3 ? (
+        {banners.filter(banner => banner.position === 'bottom').length > 0 ? (
           <div
-            dangerouslySetInnerHTML={{ __html: banners[3].ad_code }}
+            dangerouslySetInnerHTML={{
+              __html: banners.find(banner => banner.position === 'bottom').ad_code,
+            }}
           />
         ) : (
           <div className="ad-banner bottom-banner">Bottom Ad Banner</div>

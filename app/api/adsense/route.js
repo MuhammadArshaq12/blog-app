@@ -22,20 +22,21 @@ export async function GET(request) {
   }
   
   // POST a new AdSense banner
-  export async function POST(request) {
-    try {
-      const { ad_code, status } = await request.json();
-      const bannerData = { ad_code, status };
-  
-      await AdSenseBannerModel.create(bannerData);
-      console.log("AdSense Banner Added");
-  
-      return NextResponse.json({ success: true, msg: "Banner Added" });
-    } catch (error) {
-      console.error("Failed to add banner:", error);
-      return NextResponse.json({ success: false, msg: "Failed to add banner" }, { status: 500 });
-    }
+export async function POST(request) {
+  try {
+    const { ad_code, status, page, position } = await request.json();
+    const bannerData = { ad_code, status, page, position };
+
+    await AdSenseBannerModel.create(bannerData);
+    console.log("AdSense Banner Added");
+
+    return NextResponse.json({ success: true, msg: "Banner Added" });
+  } catch (error) {
+    console.error("Failed to add banner:", error);
+    return NextResponse.json({ success: false, msg: "Failed to add banner" }, { status: 500 });
   }
+}
+
   
   // DELETE a specific AdSense banner by ID
   export async function DELETE(request) {

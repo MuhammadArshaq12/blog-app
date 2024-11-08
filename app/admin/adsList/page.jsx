@@ -38,6 +38,8 @@ const ListAdSenseBannerPage = () => {
           <thead className="text-xs text-gray-700 text-left uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">Ad Code</th>
+              <th scope="col" className="px-6 py-3">Page</th>
+              <th scope="col" className="px-6 py-3">Position</th>
               <th scope="col" className="px-6 py-3">Status</th>
               <th scope="col" className="px-6 py-3">Action</th>
             </tr>
@@ -46,6 +48,8 @@ const ListAdSenseBannerPage = () => {
             {banners.map((banner, index) => (
               <tr key={index}>
                 <td className="px-6 py-3">{banner.ad_code}</td>
+                <td className="px-6 py-3">{banner.page}</td>
+                <td className="px-6 py-3">{banner.position}</td>
                 <td className="px-6 py-3">{banner.status ? 'Active' : 'Inactive'}</td>
                 <td className="px-6 py-3">
                   <button onClick={() => deleteBanner(banner._id)} className="text-red-500">

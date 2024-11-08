@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
 import Header from '@/Components/Header';
 
 const ForgotPassword = () => {
@@ -93,6 +94,26 @@ const ForgotPassword = () => {
             >
               {isLoading ? 'Verifying...' : 'Verify Email'}
             </button>
+            <div className="text-center mt-6">
+              <p className="text-sm text-gray-600">
+                Don't have an account?{' '}
+                <Link
+                  href="/register"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Create an account
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600">
+                Back To {' '}
+                <Link
+                  href="/"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Home Page
+                </Link>
+              </p>
+            </div>
           </form>
         ) : (
           <form onSubmit={handlePasswordReset} className="space-y-4">
@@ -123,6 +144,28 @@ const ForgotPassword = () => {
             >
               {isLoading ? 'Saving...' : 'Save New Password'}
             </button>
+
+            <div className="text-center mt-6">
+              <p className="text-sm text-gray-600">
+                Don't have an account?{' '}
+                <Link
+                  href="/register"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Create an account
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600">
+                Back To {' '}
+                <Link
+                  href="/"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Home Page
+                </Link>
+              </p>
+            </div>
+            
           </form>
         )}
       </div>
