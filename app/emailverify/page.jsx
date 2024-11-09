@@ -1,6 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import './page.css';
@@ -65,4 +65,10 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
+const VerifyEmailWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <VerifyEmail />
+  </Suspense>
+);
+
+export default VerifyEmailWithSuspense;
