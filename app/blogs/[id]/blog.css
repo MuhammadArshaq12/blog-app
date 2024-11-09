@@ -18,4 +18,12 @@
     .bottom-banner {
         height: 150px; /* Reduced height on mobile */
     }
+    .content-container{
+    margin-top: -140px !important;
+
+    }
+}
+
+.content-container{
+    margin-top: -80px;
 }
