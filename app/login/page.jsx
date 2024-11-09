@@ -1,11 +1,10 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
 import { useUser } from '../userContext/UserContext';
 import Header from '@/Components/Header';
-import { useSearchParams } from 'next/navigation';
 
 const Login = () => {
   const router = useRouter();
@@ -30,16 +29,14 @@ const Login = () => {
     setIsLoading(true);
     setMessage('');
 
-    // Simulating admin login logic
-    if (email === 'Admin@gmail.com' && password === 'Admin1234!') {
-      setUser({ name: 'admin', email: 'Admin@gmail.com' });
+    if (email === "Admin@gmail.com" && password === "Admin1234!") {
+      setUser({ name: "admin", email: "Admin@gmail.com" });
       setTimeout(() => {
         router.push('/admin');
       }, 1000);
       return;
     }
 
-    // Making the login API call
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -71,7 +68,7 @@ const Login = () => {
     const fetchBanners = async () => {
       try {
         const response = await axios.get('/api/adsense');
-        const filteredBanners = response.data.filter((banner) => banner.page === 'login');
+        const filteredBanners = response.data.filter(banner => banner.page === 'login');
         setBanners(filteredBanners);
       } catch (error) {
         console.error('Failed to fetch banners:', error);
@@ -82,7 +79,7 @@ const Login = () => {
   }, []);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       <Header></Header>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8 relative">
         {/* Top Ad Banner */}
@@ -274,8 +271,14 @@ const Login = () => {
           )}
         </div>
       </div>
-    </Suspense>
+    </>
   );
 };
 
-export default Login;
+const LoginWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Login></Login>
+  </Suspense>
+);
+
+export default LoginWithSuspense;
