@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
@@ -80,7 +80,7 @@ const Login = () => {
   }, []);
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Header></Header>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8 relative">
         {/* Top Ad Banner */}
@@ -121,10 +121,10 @@ const Login = () => {
             </p>
           </div>
           {message2 && (
-  <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
-    <p className="text-sm text-green-700">{message2}</p>
-  </div>
-)}
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+              <p className="text-sm text-green-700">{message2}</p>
+            </div>
+          )}
 
           {/* Error Message */}
           {message && (
@@ -198,8 +198,8 @@ const Login = () => {
               type="submit"
               disabled={isLoading}
               className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${isLoading
-                  ? 'bg-blue-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                ? 'bg-blue-400 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
                 }`}
             >
               {isLoading ? (
@@ -272,7 +272,7 @@ const Login = () => {
           )}
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 
