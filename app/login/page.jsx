@@ -30,14 +30,16 @@ const Login = () => {
     setIsLoading(true);
     setMessage('');
 
-    if (email === "Admin@gmail.com" && password === "Admin1234!") {
-      setUser({ name: "admin", email: "Admin@gmail.com" });
+    // Simulating admin login logic
+    if (email === 'Admin@gmail.com' && password === 'Admin1234!') {
+      setUser({ name: 'admin', email: 'Admin@gmail.com' });
       setTimeout(() => {
         router.push('/admin');
       }, 1000);
       return;
     }
 
+    // Making the login API call
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -69,7 +71,7 @@ const Login = () => {
     const fetchBanners = async () => {
       try {
         const response = await axios.get('/api/adsense');
-        const filteredBanners = response.data.filter(banner => banner.page === 'login');
+        const filteredBanners = response.data.filter((banner) => banner.page === 'login');
         setBanners(filteredBanners);
       } catch (error) {
         console.error('Failed to fetch banners:', error);
