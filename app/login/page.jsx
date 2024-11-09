@@ -5,6 +5,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useUser } from '../userContext/UserContext';
 import Header from '@/Components/Header';
+import { useSearchParams } from 'next/navigation';
 
 const Login = () => {
   const router = useRouter();
@@ -14,6 +15,15 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [message2, setMessage2] = useState('');
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const messageParam2 = searchParams.get('message');
+    if (messageParam2) {
+      setMessage2(messageParam2);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,6 +120,11 @@ const Login = () => {
               Please sign in to your account
             </p>
           </div>
+          {message2 && (
+  <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+    <p className="text-sm text-green-700">{message2}</p>
+  </div>
+)}
 
           {/* Error Message */}
           {message && (
