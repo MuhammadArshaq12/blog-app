@@ -181,7 +181,7 @@ const BlogPostPage = ({ params }) => {
 
               {/* YouTube Video */}
               {data.youtubeLink && (
-                <div className="my-8 rounded-lg overflow-hidden shadow-lg">
+                <div className="yt-video my-8 rounded-lg overflow-hidden shadow-lg">
                   <iframe
                     className="w-full aspect-video"
                     src={getEmbedUrl(data.youtubeLink)}

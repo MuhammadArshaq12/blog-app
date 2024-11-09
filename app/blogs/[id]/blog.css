@@ -19,11 +19,19 @@
         height: 150px; /* Reduced height on mobile */
     }
     .content-container{
-    margin-top: -140px !important;
+    margin-top: -190px !important;
+
+    }
+    .yt-video{
+    margin-top: -5px !important;
 
     }
 }
 
 .content-container{
-    margin-top: -80px;
+    margin-top: -155px;
 }
+.yt-video{
+    margin-top: -5px !important;
+
+    }
