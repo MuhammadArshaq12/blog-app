@@ -76,7 +76,7 @@ const BlogPostPage = ({ params }) => {
     const fetchBanners = async () => {
       try {
         const response = await axios.get('/api/adsense');
-        const filteredBanners = response.data.filter(banner => banner.page === 'blog detail');
+        const filteredBanners = response.data.banners.filter(banner => banner.page === 'blog detail');
         setBanners(filteredBanners);
       } catch (error) {
         console.error('Failed to fetch banners:', error);
@@ -273,8 +273,8 @@ const BlogPostPage = ({ params }) => {
         </div>
       </div>
 
-      <div className="px-10">
-        <div>
+      <div className="px-20">
+        <div className="ml-[50px]">
           {banners.filter(banner => banner.position === 'bottom').length > 0 && (
             <div
               className="ad-banner mt-8"

@@ -21,10 +21,13 @@ const BlogList = () => {
   const [banners, setBanners] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+
   const fetchBanners = async () => {
     try {
       const response = await axios.get('/api/adsense');
-      const filteredBanners = response.data.filter(banner => banner.page === 'landing page');
+      console.log('Response data:', response.data);
+      const filteredBanners = response.data.banners.filter(banner => banner.page === 'landing page');
+      console.log('Filtered banners:', filteredBanners);
       setBanners(filteredBanners);
     } catch (error) {
       console.error('Failed to fetch banners:', error);

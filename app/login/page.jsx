@@ -17,6 +17,25 @@ const Login = () => {
   const [message2, setMessage2] = useState('');
   const searchParams = useSearchParams();
 
+  const [banners, setBanners] = useState([]);
+
+  // Fetch banners for the login page
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await axios.get('/api/adsense');
+        console.log('Response data:', response.data);
+        const filteredBanners = response.data.banners.filter(banner => banner.page === 'login');
+        console.log('Filtered banners:', filteredBanners);
+        setBanners(filteredBanners);
+      } catch (error) {
+        console.error('Failed to fetch banners:', error);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
   useEffect(() => {
     const messageParam2 = searchParams.get('message');
     if (messageParam2) {
@@ -62,29 +81,13 @@ const Login = () => {
     }
   };
 
-  const [banners, setBanners] = useState([]);
-
-  useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const response = await axios.get('/api/adsense');
-        const filteredBanners = response.data.filter(banner => banner.page === 'login');
-        setBanners(filteredBanners);
-      } catch (error) {
-        console.error('Failed to fetch banners:', error);
-      }
-    };
-
-    fetchBanners();
-  }, []);
-
   return (
     <>
       <Header></Header>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8 relative">
         {/* Top Ad Banner */}
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 p-4 z-10">
-          {banners.filter(banner => banner.position === 'top').length > 0 && (
+        <div className="fixed top-4 mt-[70px] left-1/2 -translate-x-1/2 p-4 z-100">
+          {banners.find(banner => banner.position === 'top') && (
             <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
               <div
                 dangerouslySetInnerHTML={{
@@ -97,7 +100,7 @@ const Login = () => {
 
         {/* Left Ad Banner */}
         <div className="fixed top-1/2 left-4 -translate-y-1/2 p-4 z-10 hidden lg:block">
-          {banners.filter(banner => banner.position === 'left').length > 0 && (
+        {banners.find(banner => banner.position === 'left') && (
             <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
               <div
                 dangerouslySetInnerHTML={{
@@ -109,7 +112,7 @@ const Login = () => {
         </div>
 
 
-        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg z-10">
+        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg z-5">
           {/* Header */}
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
@@ -260,7 +263,7 @@ const Login = () => {
 
         {/* Bottom Ad Banner */}
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 p-4 z-10">
-          {banners.filter(banner => banner.position === 'bottom').length > 0 && (
+          {banners.find(banner => banner.position === 'bottom') && (
             <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
               <div
                 dangerouslySetInnerHTML={{

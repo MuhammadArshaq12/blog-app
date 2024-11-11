@@ -24,15 +24,18 @@ const Register = () => {
     const fetchBanners = async () => {
       try {
         const response = await axios.get('/api/adsense');
-        const filteredBanners = response.data.filter(banner => banner.page === 'register');
+        console.log('Response data:', response.data);
+        const filteredBanners = response.data.banners.filter(banner => banner.page === 'register');
+        console.log('Filtered banners:', filteredBanners);
         setBanners(filteredBanners);
       } catch (error) {
         console.error('Failed to fetch banners:', error);
       }
     };
+
     fetchBanners();
   }, []);
-
+  
   const validatePhoneNumber = (phoneNumber) => {
     const pakistanRegex = /^(?:\+92|03)[0-9]{9}$/;
     const indiaRegex = /^(?:\+91|0)[1-9][0-9]{9}$/;
@@ -110,31 +113,32 @@ const Register = () => {
     <Header></Header>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8">
       {/* Top Ad Banner */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 p-4 z-10">
-        {banners.filter(banner => banner.position === 'top').length > 0 && (
-          <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: banners.find(banner => banner.position === 'top').ad_code,
-              }}
-            />
-          </div>
-        )}
-      </div>
+      <div className="fixed top-4 mt-[70px] left-1/2 -translate-x-1/2 p-4 z-100">
+          {banners.find(banner => banner.position === 'top') && (
+            <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: banners.find(banner => banner.position === 'top').ad_code,
+                }}
+              />
+            </div>
+          )}
+        </div>
 
-      {/* Left Ad Banner */}
-      <div className="fixed top-1/2 left-4 -translate-y-1/2 p-4 z-10 hidden lg:block">
-        {banners.filter(banner => banner.position === 'left').length > 0 && (
-          <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: banners.find(banner => banner.position === 'left').ad_code,
-              }}
-            />
-          </div>
-        )}
-      </div>
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
+        {/* Left Ad Banner */}
+        <div className="fixed top-1/2 left-4 -translate-y-1/2 p-4 z-10 hidden lg:block">
+        {banners.find(banner => banner.position === 'left') && (
+            <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: banners.find(banner => banner.position === 'left').ad_code,
+                }}
+              />
+            </div>
+          )}
+        </div>
+
+      <div className="max-w-md w-full mt-[50px] pb-[70px] space-y-8 bg-white p-8 rounded-xl shadow-lg">
         {/* Header */}
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
@@ -303,31 +307,31 @@ const Register = () => {
           </div>
         </form>
       </div>
-      {/* Right Ad Banner */}
-      <div className="fixed top-1/2 right-4 -translate-y-1/2 p-4 z-10 hidden lg:block">
-        {banners.filter(banner => banner.position === 'right').length > 0 && (
-          <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: banners.find(banner => banner.position === 'right').ad_code,
-              }}
-            />
-          </div>
-        )}
-      </div>
+       {/* Right Ad Banner */}
+       <div className="fixed top-1/2 right-4 -translate-y-1/2 p-4 z-10 hidden lg:block">
+          {banners.filter(banner => banner.position === 'right').length > 0 && (
+            <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: banners.find(banner => banner.position === 'right').ad_code,
+                }}
+              />
+            </div>
+          )}
+        </div>
 
-      {/* Bottom Ad Banner */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 p-4 z-10">
-        {banners.filter(banner => banner.position === 'bottom').length > 0 && (
-          <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: banners.find(banner => banner.position === 'bottom').ad_code,
-              }}
-            />
-          </div>
-        )}
-      </div>
+        {/* Bottom Ad Banner */}
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 p-4 z-10">
+          {banners.find(banner => banner.position === 'bottom') && (
+            <div className="ad-banner shadow-lg rounded-lg overflow-hidden">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: banners.find(banner => banner.position === 'bottom').ad_code,
+                }}
+              />
+            </div>
+          )}
+        </div>
     </div>
     </>
   );
