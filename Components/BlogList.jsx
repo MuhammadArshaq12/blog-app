@@ -122,15 +122,16 @@ const BlogList = () => {
 
   return (
     <div className="blog-list-container">
-      <div className="ad-banner mt-8">
+      <div>
         {banners.filter(banner => banner.position === 'top').length > 0 ? (
-          <div
+          <div className="ad-banner mt-8"
             dangerouslySetInnerHTML={{
               __html: banners.find(banner => banner.position === 'top').ad_code,
             }}
           />
         ) : (
-          <div className="ad-banner top-banner">Top Ad Banner</div>
+          <p></p>
+
         )}
       </div>
 
@@ -189,16 +190,16 @@ const BlogList = () => {
       {/* Blog and Ad Sections */}
       <div className="content-layout">
 
-        <div className="ad-banner mt-8">
+        <div>
 
           {banners.filter(banner => banner.position === 'left').length > 0 ? (
-            <div
+            <div className="ad-banner mt-8"
               dangerouslySetInnerHTML={{
                 __html: banners.find(banner => banner.position === 'left').ad_code,
               }}
             />
           ) : (
-            <div className="ad-banner left-banner">Left Ad Banner</div>
+            <p></p>
           )}
         </div>
 
@@ -312,15 +313,16 @@ const BlogList = () => {
           )}
         </div>
 
-        <div className="ad-banner mt-8">
+        <div>
           {banners.filter(banner => banner.position === 'right').length > 0 ? (
-            <div
+            <div className="ad-banner mt-8"
               dangerouslySetInnerHTML={{
                 __html: banners.find(banner => banner.position === 'right').ad_code,
               }}
             />
           ) : (
-            <div className="ad-banner right-banner">Right Ad Banner</div>
+            <p></p>
+
           )}
         </div>
 
@@ -328,15 +330,15 @@ const BlogList = () => {
       </div>
 
 
-      <div className="ad-banner mt-8">
+      <div >
         {banners.filter(banner => banner.position === 'bottom').length > 0 ? (
-          <div
+          <div className="ad-banner mt-8"
             dangerouslySetInnerHTML={{
               __html: banners.find(banner => banner.position === 'bottom').ad_code,
             }}
           />
         ) : (
-          <div className="ad-banner bottom-banner">Bottom Ad Banner</div>
+          <p></p>
         )}
       </div>
 

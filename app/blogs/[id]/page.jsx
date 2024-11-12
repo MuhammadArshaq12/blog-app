@@ -133,7 +133,7 @@ const BlogPostPage = ({ params }) => {
           {banners.filter(banner => banner.position === 'left').slice(0, 2).map((banner, index) => (
             <div
               key={index}
-              className="ad-banner h-[300px] sm:h-[450px] left-banner p-4 bg-gray-200 rounded-lg shadow-lg"
+              className="ad-banner h-[300px] sm:h-[450px] left-banner p-4 rounded-lg "
               dangerouslySetInnerHTML={{ __html: banner.ad_code }}
             ></div>
           ))}
@@ -266,7 +266,7 @@ const BlogPostPage = ({ params }) => {
           {banners.filter(banner => banner.position === 'right').slice(0, 2).map((banner, index) => (
             <div
               key={index}
-              className="ad-banner h-[300px] sm:h-[450px] right-banner p-4 bg-gray-200 rounded-lg shadow-lg"
+              className="ad-banner h-[300px] sm:h-[450px] right-banner p-4  rounded-lg "
               dangerouslySetInnerHTML={{ __html: banner.ad_code }}
             ></div>
           ))}

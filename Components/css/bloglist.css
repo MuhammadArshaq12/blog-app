@@ -30,6 +30,7 @@
 }
 
 .main-content {
+  max-width: 800px;
   flex: 1; /* Take available space */
   margin: 0 20px; /* Space between the side banners */
 }
