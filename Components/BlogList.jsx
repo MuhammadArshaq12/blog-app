@@ -135,7 +135,8 @@ const BlogList = () => {
         )}
       </div>
 
-
+      <br></br>
+      <br></br>
 
       {/* Main Heading */}
       <h1 className="text-center header-hero-title relative text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
