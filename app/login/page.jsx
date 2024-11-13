@@ -219,7 +219,19 @@ const Login = () => {
 
             {/* Register Link */}
             <div className="text-center mt-6">
+            <p className="text-sm text-gray-600">
+                Forgot your password?{' '}
+                <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                  Reset it here
+                </Link>
+              </p>
               <p className="text-sm text-gray-600">
+                Email not verify?{' '}
+                <Link href="/resend" className="font-medium text-blue-600 hover:text-blue-500">
+                  Get verification link again
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600 mt-2">
                 Don't have an account?{' '}
                 <Link
                   href="/register"
@@ -237,12 +249,7 @@ const Login = () => {
                   Home Page
                 </Link>
               </p>
-              <p className="text-sm text-gray-600 mt-2">
-                Forgot your password?{' '}
-                <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
-                  Reset it here
-                </Link>
-              </p>
+              
 
             </div>
           </form>
