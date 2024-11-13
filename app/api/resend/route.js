@@ -45,7 +45,7 @@ export async function POST(req) {
         });
 
         // Generate a verification token
-
+        
         const verificationUrl = `https://blog-app-three-sepia.vercel.app/emailverify?token=${verificationToken}`;
 
         await transporter.sendMail({
