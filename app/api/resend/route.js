@@ -46,7 +46,7 @@ export async function POST(req) {
 
         // Generate a verification token
 
-        const verificationUrl = `http://localhost:3000//emailverify?token=${verificationToken}`;
+        const verificationUrl = `https://blog-app-three-sepia.vercel.app/emailverify?token=${verificationToken}`;
 
         await transporter.sendMail({
             to: email,
