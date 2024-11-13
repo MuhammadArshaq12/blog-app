@@ -12,6 +12,14 @@
     height: 200px;
 }
 
+.center-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Ensures it takes full width of its container */
+    margin: 0 auto; /* Centers it horizontally */
+  }
 
 /* Mobile Screen (Below 768px) */
 @media (max-width: 768px) {

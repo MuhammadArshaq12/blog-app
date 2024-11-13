@@ -274,10 +274,10 @@ const BlogPostPage = ({ params }) => {
       </div>
 
       <div className="px-20">
-        <div className="ml-[50px]">
+        <div className="">
           {banners.filter(banner => banner.position === 'bottom').length > 0 && (
             <div
-              className="ad-banner mt-8"
+              className="ad-banner mt-8 center-banner"
               dangerouslySetInnerHTML={{
                 __html: banners.find(banner => banner.position === 'bottom').ad_code,
               }}
@@ -285,6 +285,8 @@ const BlogPostPage = ({ params }) => {
           )}
         </div>
       </div>
+      <br></br>
+      <br></br>
       <Footer />
     </div>
   ) : null);

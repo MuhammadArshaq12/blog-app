@@ -124,16 +124,17 @@ const BlogList = () => {
     <div className="blog-list-container">
       <div>
         {banners.filter(banner => banner.position === 'top').length > 0 ? (
-          <div className="ad-banner mt-8"
+          <div
+            className="ad-banner mt-8 center-banner"
             dangerouslySetInnerHTML={{
               __html: banners.find(banner => banner.position === 'top').ad_code,
             }}
           />
         ) : (
           <p></p>
-
         )}
       </div>
+
 
 
       {/* Main Heading */}
@@ -332,7 +333,7 @@ const BlogList = () => {
 
       <div >
         {banners.filter(banner => banner.position === 'bottom').length > 0 ? (
-          <div className="ad-banner mt-8"
+          <div className="ad-banner mt-8 center-banner"
             dangerouslySetInnerHTML={{
               __html: banners.find(banner => banner.position === 'bottom').ad_code,
             }}
